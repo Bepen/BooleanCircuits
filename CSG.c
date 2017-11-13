@@ -29,5 +29,6 @@ void printTable(CSG** csgTable) {
 }
 
 void main(int argc, char* argv[]) {
-
+  CSG** csgTable = createTable();
+  printTable(csgTable);
 }
