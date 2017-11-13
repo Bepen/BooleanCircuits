@@ -24,7 +24,7 @@ struct CSG** createTable() {
 
 void printTable(CSG** csgTable) {
   for (int i = 0; i < 1009; i++) {
-    print
+    printf("Course: %s. Student ID: %d. Grade: %s\n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade);
   }
 }
 
