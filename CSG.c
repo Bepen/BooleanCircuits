@@ -17,6 +17,6 @@ struct CSG* newCSG(char* course, int studentID, char* grade){
 struct CSG** createTable() {
   struct CSG** csgTab = malloc(1009*sizeof(struct CSG));
   for (int i = 0; i < 1009; i++) {
-    csgTab[i] =
+    return 0;
   }
 }
