@@ -9,7 +9,9 @@ struct CSG {
   int studentID;
   char* grade;
   struct CSG* next;
-}
+};
 
 struct CSG* newCSG(char* course, int studentID, char* grade);
 struct CSG** createTable();
+
+#endif

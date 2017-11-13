@@ -22,13 +22,13 @@ struct CSG** createTable() {
   return csgTab;
 }
 
-void printTable(CSG** csgTable) {
+void printTable(struct CSG** csgTable) {
   for (int i = 0; i < 1009; i++) {
     printf("Course: %s. Student ID: %d. Grade: %s\n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade);
   }
 }
 
-void main(int argc, char* argv[]) {
-  CSG** csgTable = createTable();
+int main(int argc, char* argv[]) {
+  struct CSG** csgTable = createTable();
   printTable(csgTable);
 }
