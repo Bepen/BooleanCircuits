@@ -16,19 +16,29 @@ struct CSG* newCSG(char* course, int studentID, char* grade){
 
 struct CSG** createTable() {
   struct CSG** csgTab = malloc(1009*sizeof(struct CSG));
-  for (int i = 0; i < 1009; i++) {
-    csgTab[i] = newCSG("", 0, "");
-  }
   return csgTab;
+}
+
+int getHashKey(struct CSG* csg) {
+  return csg->studentID % 1009;
+}
+
+void insertTuple(struct CSG** csgTable, char* course, int studentID, char* grade) {
+  struct CSG* csgTemp = newCSG(course, studentID, grade);
+  int key = getHashKey(csgTemp);
+  csgTable[key] = csgTemp;
 }
 
 void printTable(struct CSG** csgTable) {
   for (int i = 0; i < 1009; i++) {
-    printf("Course: %s. Student ID: %d. Grade: %s\n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade);
+    if (csgTable[i] != NULL) {
+      printf("Course: %s. Student ID: %d. Grade: %s\n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade);
+    }
   }
 }
 
 int main(int argc, char* argv[]) {
   struct CSG** csgTable = createTable();
+  insertTuple(csgTable, "Sailesh", 6969, "A");
   printTable(csgTable);
 }
