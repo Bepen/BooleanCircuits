@@ -21,3 +21,11 @@ struct CSG** createTable() {
   }
   return csgTab;
 }
+
+void printTable(CSG** csgTable) {
+  for (int i)
+}
+
+void main(int argc, char* argv[]) {
+
+}
