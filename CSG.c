@@ -23,7 +23,9 @@ struct CSG** createTable() {
 }
 
 void printTable(CSG** csgTable) {
-  for (int i)r
+  for (int i = 0; i < 1009; i++) {
+    print
+  }
 }
 
 void main(int argc, char* argv[]) {
