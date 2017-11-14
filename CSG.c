@@ -38,10 +38,11 @@ void insertTuple(struct CSG** csgTable, char* course, int studentID, char* grade
   //csgTable[key] = csgTemp;
 }
 
+
 void printTable(struct CSG** csgTable) {
   for (int i = 0; i < 1009; i++) {
     if (csgTable[i] != NULL) {
-      printf("Course: %s. Student ID: %d. Grade: %s\n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade);
+      printf("Course: %s. Student ID: %d. Grade: %s. Key %d\n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade, getHashKey(csgTable[i]));
       while(csgTable[i]->next != NULL){
         csgTable[i] = csgTable[i]->next;
         printf("Course: %s. Student ID: %d. Grade: %s, Key: %d\n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade, getHashKey(csgTable[i]));
@@ -55,8 +56,11 @@ void printTable(struct CSG** csgTable) {
 
 int main(int argc, char* argv[]) {
   struct CSG** csgTable = createTable();
-  insertTuple(csgTable, "Sailesh", 6969, "A");
-  insertTuple(csgTable, "Haha", 7978, "C");
-  insertTuple(csgTable, "Fetty Wap", 1738, "G");
+  insertTuple(csgTable, "CSC101", 12345, "A");
+  insertTuple(csgTable, "CSC101", 67890, "B");
+  insertTuple(csgTable, "EE200", 12345, "C");
+  insertTuple(csgTable, "EE200", 22222, "B+");
+  insertTuple(csgTable, "CSC101", 33333, "A-");
+  insertTuple(csgTable, "PH100", 67890, "C+");
   printTable(csgTable);
 }
