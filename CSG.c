@@ -40,6 +40,7 @@ void insertTuple(struct CSG** csgTable, char* course, int studentID, char* grade
 
 void deleteTuple(struct CSG** csgTable, char* course, int studentID, char* grade) {
   struct CSG* csgTemp = newCSG(course, studentID, grade);
+  struct CSG* csgFiller = newCSG("", 0, "");
   char string[50];
   sprintf(string, "%d", studentID);
   char* idString = string;
@@ -49,11 +50,11 @@ void deleteTuple(struct CSG** csgTable, char* course, int studentID, char* grade
     while(csgTable[key]->next != NULL) {
       if (strcmp(csgTable[key]->course, course) == 0 && strcmp(csgTable[key]->grade, grade) == 0 && csgTable[key]->studentID == studentID) {
         //printf("Reaches Here");
-        csgTable[key] = csgTable[key]->next;
+        csgTable[key] = csgFiller;
         break;
       } else {
-        printf("Reaches Here");
-        csgTable[key]->next = csgTable[key];
+        //printf("Reaches Here");
+        csgTable[key] = csgTable[key]->next;
       }
     }
   }
@@ -63,10 +64,18 @@ void deleteTuple(struct CSG** csgTable, char* course, int studentID, char* grade
 void printTable(struct CSG** csgTable) {
   for (int i = 0; i < 1009; i++) {
     if (csgTable[i] != NULL) {
+      if (strcmp(csgTable[i]->course, "") == 0) {
+        csgTable[i] = csgTable[i]->next;
+      }
       printf("Course: %s. Student ID: %d. Grade: %s. Key %d\n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade, getHashKey(csgTable[i]));
       while(csgTable[i]->next != NULL){
-        csgTable[i] = csgTable[i]->next;
-        printf("Course: %s. Student ID: %d. Grade: %s, Key: %d\n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade, getHashKey(csgTable[i]));
+        if (strcmp(csgTable[i]->course, "") == 0) {
+          csgTable[i] = csgTable[i]->next;
+        } else {
+          csgTable[i] = csgTable[i]->next;
+          printf("Course: %s. Student ID: %d. Grade: %s, Key: %d\n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade, getHashKey(csgTable[i]));
+        }
+
         if (csgTable[i]->next == NULL) {
           break;
         }
@@ -78,11 +87,12 @@ void printTable(struct CSG** csgTable) {
 int main(int argc, char* argv[]) {
   struct CSG** csgTable = createTable();
   insertTuple(csgTable, "CSC101", 12345, "A");
+  insertTuple(csgTable, "", 0, "");
   insertTuple(csgTable, "CSC101", 67890, "B");
   insertTuple(csgTable, "EE200", 12345, "C");
   insertTuple(csgTable, "EE200", 22222, "B+");
   insertTuple(csgTable, "CSC101", 33333, "A-");
   insertTuple(csgTable, "PH100", 67890, "C+");
-  deleteTuple(csgTable, "EE200", 12345, "C");
+  //deleteTuple(csgTable, "EE200", 12345, "C");
   printTable(csgTable);
 }
