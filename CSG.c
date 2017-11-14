@@ -48,9 +48,13 @@ void deleteTuple(struct CSG** csgTable, char* course, int studentID, char* grade
   if (strcmp(course, "*") != 0 && strcmp(idString, "*") != 0 && strcmp(grade, "*") != 0) {
     //printf("Gets here");
     int key = getHashKey(csgTemp);
+    if (strcmp(csgTable[key]->course, course) == 0 && strcmp(csgTable[key]->grade, grade) == 0 && csgTable[key]->studentID == studentID) {
+      //printf("Reaches Here");
+      csgTable[key] = csgFiller;
+    }
     while(csgTable[key]->next != NULL) {
       if (strcmp(csgTable[key]->course, course) == 0 && strcmp(csgTable[key]->grade, grade) == 0 && csgTable[key]->studentID == studentID) {
-        printf("Reaches Here");
+        //printf("Reaches Here");
         csgTable[key] = csgFiller;
         break;
       } else {
