@@ -58,12 +58,9 @@ void deleteTuple(struct CSG** csgTable, char* course, int studentID, char* grade
       }
     }
   }
-<<<<<<< HEAD
   //only studentID defined
   if (strcmp(course, "*") != 0 && strcmp(grade, "*") != 0) {
   }
-=======
->>>>>>> a1420568679a7f6e06e46d1e361cd6c929d03af4
 }
 
 
@@ -101,10 +98,7 @@ int main(int argc, char* argv[]) {
   insertTuple(csgTable, "EE200", 22222, "B+");
   insertTuple(csgTable, "CSC101", 33333, "A-");
   insertTuple(csgTable, "PH100", 67890, "C+");
-<<<<<<< HEAD
   deleteTuple(csgTable, "EN150", 20310, "D+");
-=======
   deleteTuple(csgTable, "EE200", 12345, "C");
->>>>>>> a1420568679a7f6e06e46d1e361cd6c929d03af4
   printTable(csgTable);
 }
