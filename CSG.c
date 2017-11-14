@@ -64,10 +64,9 @@ void deleteTuple(struct CSG** csgTable, char* course, int studentID, char* grade
 void printTable(struct CSG** csgTable) {
   for (int i = 0; i < 1009; i++) {
     if (csgTable[i] != NULL) {
-      if (strcmp(csgTable[i]->course, "") == 0) {
-        csgTable[i] = csgTable[i]->next;
+      if (strcmp(csgTable[i]->course, "") != 0) {
+        printf("Course: %s. Student ID: %d. Grade: %s. Key %d\n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade, getHashKey(csgTable[i]));
       }
-      printf("Course: %s. Student ID: %d. Grade: %s. Key %d\n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade, getHashKey(csgTable[i]));
       while(csgTable[i]->next != NULL){
         if (strcmp(csgTable[i]->course, "") == 0) {
           csgTable[i] = csgTable[i]->next;
@@ -93,6 +92,6 @@ int main(int argc, char* argv[]) {
   insertTuple(csgTable, "EE200", 22222, "B+");
   insertTuple(csgTable, "CSC101", 33333, "A-");
   insertTuple(csgTable, "PH100", 67890, "C+");
-  //deleteTuple(csgTable, "EE200", 12345, "C");
+  deleteTuple(csgTable, "EE200", 12345, "C");
   printTable(csgTable);
 }
