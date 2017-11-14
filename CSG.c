@@ -38,6 +38,27 @@ void insertTuple(struct CSG** csgTable, char* course, int studentID, char* grade
   //csgTable[key] = csgTemp;
 }
 
+void deleteTuple(struct CSG** csgTable, char* course, int studentID, char* grade) {
+  struct CSG* csgTemp = newCSG(course, studentID, grade);
+  char string[50];
+  sprintf(string, "%d", studentID);
+  char* idString = string;
+  //all three defined
+  if (strcmp(course, "*") != 0 && strcmp(idString, "*") != 0 && strcmp(grade, "*") != 0) {
+    int key = getHashKey(csgTemp);
+    while(csgTable[key]->next != NULL) {
+      if (strcmp(csgTable[key]->course, course) == 0 && strcmp(csgTable[key]->grade, grade) == 0 && csgTable[key]->studentID == studentID) {
+        //printf("Reaches Here");
+        csgTable[key] = csgTable[key]->next;
+        break;
+      } else {
+        printf("Reaches Here");
+        csgTable[key]->next = csgTable[key];
+      }
+    }
+  }
+}
+
 
 void printTable(struct CSG** csgTable) {
   for (int i = 0; i < 1009; i++) {
@@ -62,5 +83,6 @@ int main(int argc, char* argv[]) {
   insertTuple(csgTable, "EE200", 22222, "B+");
   insertTuple(csgTable, "CSC101", 33333, "A-");
   insertTuple(csgTable, "PH100", 67890, "C+");
+  deleteTuple(csgTable, "EE200", 12345, "C");
   printTable(csgTable);
 }
