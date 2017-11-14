@@ -46,10 +46,11 @@ void deleteTuple(struct CSG** csgTable, char* course, int studentID, char* grade
   char* idString = string;
   //all three defined
   if (strcmp(course, "*") != 0 && strcmp(idString, "*") != 0 && strcmp(grade, "*") != 0) {
+    //printf("Gets here");
     int key = getHashKey(csgTemp);
     while(csgTable[key]->next != NULL) {
       if (strcmp(csgTable[key]->course, course) == 0 && strcmp(csgTable[key]->grade, grade) == 0 && csgTable[key]->studentID == studentID) {
-        //printf("Reaches Here");
+        printf("Reaches Here");
         csgTable[key] = csgFiller;
         break;
       } else {
@@ -59,7 +60,7 @@ void deleteTuple(struct CSG** csgTable, char* course, int studentID, char* grade
     }
   }
   //only studentID defined
-  else if (strcmp(course, "*") != 0 && strcmp(grade, "*") != 0) {
+  else if (strcmp(course, "*") == 0 && strcmp(grade, "*") == 0) {
     int key = getHashKey(csgTemp);
     while(csgTable[key]->next != NULL) {
       if (csgTable[key]->studentID == studentID) {
@@ -98,6 +99,7 @@ void printTable(struct CSG** csgTable) {
 
 int main(int argc, char* argv[]) {
   struct CSG** csgTable = createTable();
+  //insertTuple(csgTable, "", 0, "");
   insertTuple(csgTable, "CSC101", 12345, "A");
   insertTuple(csgTable, "CSC101", 67890, "B");
   insertTuple(csgTable, "EE200", 12345, "C");
