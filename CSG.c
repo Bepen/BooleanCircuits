@@ -99,7 +99,6 @@ void printTable(struct CSG** csgTable) {
 int main(int argc, char* argv[]) {
   struct CSG** csgTable = createTable();
   insertTuple(csgTable, "CSC101", 12345, "A");
-  insertTuple(csgTable, "", 0, "");
   insertTuple(csgTable, "CSC101", 67890, "B");
   insertTuple(csgTable, "EE200", 12345, "C");
   insertTuple(csgTable, "EE200", 49192, "D");
