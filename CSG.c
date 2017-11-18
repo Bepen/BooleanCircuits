@@ -88,6 +88,9 @@ void deleteTuple(struct CSG** csgTable, char* course, int studentID, char* grade
         //printf("%d\n", i);
         continue;
       }
+      if (strcmp(csgTable[i]->course, course) == 0){
+        csgTable[i] = csgFiller;
+      }
       while(csgTable[i]->next != NULL) {
         //printf("%d\n", i);
         if (strcmp(csgTable[i]->course, course) == 0){
