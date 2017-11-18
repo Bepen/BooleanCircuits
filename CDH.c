@@ -60,53 +60,26 @@ void insertTuple(struct CDH** cdhTable, char* course, char* day, char* hour) {
     }
     cdhTable[key]->next = cdhTemp;
   }
-  //csgTable[key] = csgTemp;
 }
-/*
-void deleteTuple(struct CSG** csgTable, char* course, int studentID, char* grade) {
-  struct CSG* csgTemp = newCSG(course, studentID, grade);
-  struct CSG* csgFiller = newCSG("", 0, "");
-  char string[50];
-  sprintf(string, "%d", studentID);
-  char* idString = string;
-  //all three defined
-  if (strcmp(course, "*") != 0 && strcmp(idString, "*") != 0 && strcmp(grade, "*") != 0) {
-    //printf("Gets here");
-    int key = getHashKey(csgTemp);
-    if (strcmp(csgTable[key]->course, course) == 0 && strcmp(csgTable[key]->grade, grade) == 0 && csgTable[key]->studentID == studentID) {
-      //printf("Reaches Here");
-      csgTable[key] = csgFiller;
+
+void deleteTuple(struct CDH** cdhTable, char* course, char* day, char* hour){
+  struct CDH* cdhTemp = newCDH(course, day, hour);
+  struct CDH* cdhFiller = newCDH("", "", "");
+  if (strcmp(course, "*") != 0 && strcmp(day, "*") != 0 && strcmp(hour, "*") != 0) {
+    int key = getHashKey(cdhTemp);
+    if (strcmp(cdhTable[key]->course, course) == 0 && strcmp(cdhTable[key]->day, day) == 0 && strcmp(cdhTable[key]->hour, hour) == 0) {
+      cdhTable[key] = cdhFiller;
     }
-    while(csgTable[key]->next != NULL) {
-      if (strcmp(csgTable[key]->course, course) == 0 && strcmp(csgTable[key]->grade, grade) == 0 && csgTable[key]->studentID == studentID) {
-        //printf("Reaches Here");
-        csgTable[key] = csgFiller;
+    while(cdhTable[key]->next != NULL) {
+      if (strcmp(cdhTable[key]->course, course) == 0 && strcmp(cdhTable[key]->day, day) == 0 && strcmp(cdhTable[key]->hour, hour) == 0) {
+        cdhTable[key] = cdhFiller;
         break;
       } else {
-        //printf("Reaches Here");
-        csgTable[key] = csgTable[key]->next;
+        cdhTable[key] = cdhTable[key]->next;
       }
-    }
-  }
-  //only studentID defined
-  else if (strcmp(course, "*") == 0 && strcmp(grade, "*") == 0) {
-    int key = getHashKey(csgTemp);
-    while(csgTable[key]->next != NULL) {
-      if (csgTable[key]->studentID == studentID) {
-        //printf("Reaches Here");
-        csgTable[key] = csgFiller;
-      } else {
-        //printf("Reaches Here");
-        csgTable[key] = csgTable[key]->next;
-      }
-    }
-    if (csgTable[key]->studentID == studentID) {
-      //printf("Reaches Here");
-      csgTable[key] = csgFiller;
     }
   }
 }
-*/
 
 void printTable(struct CDH** cdhTable) {
   for (int i = 0; i < 1009; i++) {
@@ -121,7 +94,6 @@ void printTable(struct CDH** cdhTable) {
           cdhTable[i] = cdhTable[i]->next;
           printf("Course: %s. Day: %s. Hour: %s. Key %d\n", cdhTable[i]->course, cdhTable[i]->day, cdhTable[i]->hour, getHashKey(cdhTable[i]));
         }
-
         if (cdhTable[i]->next == NULL) {
           break;
         }
@@ -138,5 +110,7 @@ int main(int argc, char* argv[]) {
   insertTuple(cdhTable, "EE200", "Tu", "10AM");
   insertTuple(cdhTable, "EE200", "W", "1PM");
   insertTuple(cdhTable, "EE200", "Th", "10AM");
+  insertTuple(cdhTable, "PSY101", "M", "9AM");
+  deleteTuple(cdhTable, "PSY101", "M", "9AM");
   printTable(cdhTable);
 }
