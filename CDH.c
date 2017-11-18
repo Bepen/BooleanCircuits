@@ -103,12 +103,32 @@ void printTable(struct CDH** cdhTable) {
   }
 }
 
+void lookup(struct CDH** cdhTable, char* course, char* day, char* hour) {
+  struct CDH* cdhTemp = newCDH(course, day, hour);
+  struct CDH** cdhTableTemp = createTable();
+  int broke = 0;
+  int key = getHashKey(cdhTemp);
+  while(cdhTable[key] != NULL) {
+    printf("%s \n", cdhTable[key]->hour);
+    if (strcmp(cdhTable[key]->course, course) == 0 && strcmp(cdhTable[key]->day, day) == 0) {
+      insertTuple(cdhTableTemp, cdhTable[key]->course, cdhTable[key]->day, cdhTable[key]->hour);
+      break;
+      broke = 1;
+    } else {
+      //printf("Reaches Here");
+      cdhTable[key] = cdhTable[key]->next;
+    }
+  }
+  printTable(cdhTableTemp);
+}
+
 int main(int argc, char* argv[]) {
   struct CDH** cdhTable = createTable();
   insertTuple(cdhTable, "CS101", "M", "9AM");
   insertTuple(cdhTable, "CS101", "W", "9AM");
   insertTuple(cdhTable, "CS101", "F", "9AM");
   insertTuple(cdhTable, "EE200", "Tu", "10AM");
+  insertTuple(cdhTable, "EE200", "Tu", "11AM");
   insertTuple(cdhTable, "EE200", "W", "1PM");
   insertTuple(cdhTable, "EE200", "Th", "10AM");
   insertTuple(cdhTable, "PSY101", "M", "9AM");
@@ -116,4 +136,6 @@ int main(int argc, char* argv[]) {
   insertTuple(cdhTable, "STT213", "M", "9AM");
   deleteTuple(cdhTable, "STT213", "M", "9AM");
   printTable(cdhTable);
+  printf("lookup********\n");
+  lookup(cdhTable, "EE200", "Tu", "*");
 }
