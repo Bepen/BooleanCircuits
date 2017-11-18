@@ -147,7 +147,7 @@ void lookup(struct CSG** csgTable, char* course, int studentID, char* grade) {
 
 int main(int argc, char* argv[]) {
   struct CSG** csgTable = createTable();
-  printf("Inserted 8 different tuples: ");
+  printf("Inserted 8 different tuples: \n");
   insertTuple(csgTable, "CS101", 12345, "A");
   insertTuple(csgTable, "EE200", 12345, "C");
   insertTuple(csgTable, "EE200", 49192, "D");

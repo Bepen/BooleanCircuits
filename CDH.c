@@ -112,5 +112,7 @@ int main(int argc, char* argv[]) {
   insertTuple(cdhTable, "EE200", "Th", "10AM");
   insertTuple(cdhTable, "PSY101", "M", "9AM");
   deleteTuple(cdhTable, "PSY101", "M", "9AM");
+  insertTuple(cdhTable, "STT213", "M", "9AM");
+  deleteTuple(cdhTable, "STT213", "M", "9AM");
   printTable(cdhTable);
 }
