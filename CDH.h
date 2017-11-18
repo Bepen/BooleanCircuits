@@ -1,5 +1,5 @@
-#ifndef _CSG_h_gf
-#define _CSG_h_gf
+#ifndef _CDH_h_gf
+#define _CDH_h_gf
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,7 +11,7 @@ struct CDH {
   struct CDH* next;
 };
 
-struct CDH* newCSG(char* course, char* day, char* hour);
+struct CDH* newCDH(char* course, char* day, char* hour);
 struct CDH** createTable();
 
 #endif
