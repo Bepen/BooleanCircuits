@@ -80,8 +80,29 @@ void deleteTuple(struct CSG** csgTable, char* course, int studentID, char* grade
       csgTable[key] = csgFiller;
     }
   }
-}
 
+  //only course is defined
+  else if (studentID == 0 && strcmp(grade, "*") == 0) {
+    for (int i = 0; i < 1009; i++) {
+      if (csgTable[i] == NULL) {
+        //printf("%d\n", i);
+        continue;
+      }
+      while(csgTable[i]->next != NULL) {
+        //printf("%d\n", i);
+        if (strcmp(csgTable[i]->course, course) == 0){
+          csgTable[i] = csgFiller;
+        } else {
+          csgTable[i] = csgTable[i]->next;
+        }
+      }
+
+      if (strcmp(csgTable[i]->course, course) == 0){
+        csgTable[i] = csgFiller;
+      }
+    }
+  }
+}
 
 void printTable(struct CSG** csgTable) {
   for (int i = 0; i < 1009; i++) {
@@ -105,8 +126,28 @@ void printTable(struct CSG** csgTable) {
   }
 }
 
+void lookup(struct CSG** csgTable, char* course, int studentID, char* grade) {
+  struct CSG* csgTemp = newCSG(course, studentID, grade);
+  struct CSG** csgTableTemp = createTable();
+  int broke = 0;
+  int key = getHashKey(csgTemp);
+  while(csgTable[key]->next != NULL) {
+    if (csgTable[key]->studentID == studentID && strcmp(csgTable[key]->course, course)) {
+      //printf("Reaches Here");
+      insertTuple(csgTableTemp, csgTable[key]->course, csgTable[key]->studentID, csgTable[key]->grade);
+      break;
+      broke = 1;
+    } else {
+      //printf("Reaches Here");
+      csgTable[key] = csgTable[key]->next;
+    }
+  }
+  printTable(csgTableTemp);
+}
+
 int main(int argc, char* argv[]) {
   struct CSG** csgTable = createTable();
+  printf("Inserted 8 different tuples: ");
   insertTuple(csgTable, "CS101", 12345, "A");
   insertTuple(csgTable, "EE200", 12345, "C");
   insertTuple(csgTable, "EE200", 49192, "D");
@@ -115,8 +156,13 @@ int main(int argc, char* argv[]) {
   insertTuple(csgTable, "EE200", 22222, "B+");
   insertTuple(csgTable, "CS101", 33333, "A-");
   insertTuple(csgTable, "PH100", 67890, "C+");
-  insertTuple(csgTable, "CS101", 67890, "C+");
+  printf("Looking up the grade for student in CSC101 with an ID of 12345:\n");
+  lookup(csgTable, "CSC101", 12345, "*");
+  printf("Deleting the student 20310 in EN150 with a D+: \n");
   deleteTuple(csgTable, "EN150", 20310, "D+");
+  printf("Deleting the student 12345: \n");
   deleteTuple(csgTable, "*", 12345, "*");
+  printf("Deleting all of the students in PH100\n");
+  deleteTuple(csgTable, "PH100", 0, "*");
   printTable(csgTable);
 }
