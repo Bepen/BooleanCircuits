@@ -25,6 +25,24 @@ int getHashKey(struct SNAP* snap) {
   return snap->studentID % 1009;
 }
 
-void insertTuple(struct SNAP** snap, int studentID, char* name, char* address, char* phone) {
-  
+void insertTuple(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone) {
+  struct SNAP* snapTemp = newSNAP(studentID, name, address, phone);
+  int key = getHashKey(csgTemp);
+  if(csgTable[key] == NULL) {
+    csgTable[key] = csgTemp;
+  } else {
+    while (snapTable[key]->next != NULL) {
+      if (snapTable[key]->studentID == studentID && strcmp(snapTable[key]->name, name) == 0 && strcmp(snapTable[key]->address, address) == 0 && strcmp(snapTable[key]->phone, phone) == 0) {
+        break;
+      }
+      snapTable[key] = snapTable[key]->next;
+    }
+  }
+  if (snapTable[key]->studentID == studentID && strcmp(snapTable[key]->name, name) == 0 && strcmp(snapTable[key]->address, address) == 0 && strcmp(snapTable[key]->phone, phone) == 0) {
+    snapTable[key]->next = snapTemp;
+  }
+}
+
+void printTable(struct SNAP** snapTable) {
+
 }
