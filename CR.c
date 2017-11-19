@@ -50,6 +50,47 @@ void insertTuple(struct CR** crTable, char* course, char* room) {
   }
 }
 
+void deleteTuple(struct CR** crTable, char* course, char* room) {
+  struct CR* crFiller = newCR("", "");
+  struct CR* crTemp = newCR(course, room);
+  if (strcmp(room, "*") == 0) {
+    for (int i = 0; i < 1009; i++) {
+      if (crTable[i] == NULL) {
+        //printf("%d\n", i);
+        continue;
+      }
+      if (strcmp(crTable[i]->course, course) == 0) {
+        crTable[i] = crFiller;
+      }
+      while(crTable[i]->next != NULL) {
+        if (strcmp(crTable[i]->course, course) == 0) {
+          crTable[i] = crFiller;
+        } else {
+          crTable[i] = crTable[i]->next;
+        }
+      }
+      if (strcmp(crTable[i]->course, course) == 0) {
+        crTable[i] = crFiller;
+      }
+    }
+  } else {
+    int key = getCRKey(crTemp);
+    if (crTable[key] == NULL) {
+      return;
+    }
+    while (crTable[key]->next != NULL) {
+      if (strcmp(crTable[key]->course, course) == 0 && strcmp(crTable[key]->room, room) == 0) {
+        crTable[key] = crFiller;
+      } else {
+        crTable[key] = crTable[key]->next;
+      }
+    }
+    if (strcmp(crTable[key]->course, course) == 0 && strcmp(crTable[key]->room, room) == 0) {
+      crTable[key] = crFiller;
+    }
+  }
+}
+
 void printTable(struct CR** crTable) {
   for (int i = 0; i < 1009; i++) {
     if (crTable[i] != NULL) {
@@ -71,13 +112,40 @@ void printTable(struct CR** crTable) {
   }
 }
 
-
+void lookup(struct CR** crTable, char* course, char* room) {
+  struct CR* crTemp = newCR(course, room);
+  struct CR** crTempTable = createTable();
+  int key = getCRKey(crTemp);
+  if (crTable[key] == NULL) {
+    //printf("NULL\n");
+    return;
+  }
+  while (crTable[key]->next != NULL) {
+    if (strcmp(crTable[key]->course, course) == 0 && strcmp(crTable[key]->room, room) == 0) {
+      insertTuple(crTempTable, course, room);
+      break;
+    } else {
+      crTable[key] = crTable[key]->next;
+    }
+  }
+  if (strcmp(crTable[key]->course, course) == 0 && strcmp(crTable[key]->room, room) == 0) {
+    insertTuple(crTempTable, course, room);
+  }
+  printTable(crTempTable);
+}
 
 
 int main(int argc, char* argv[]) {
   struct CR** crTable = createTable();
-  insertTuple(crTable, "CS101", "Turing Aud.");
+  insertTuple(crTable, "CS101", "Turing Aud");
   insertTuple(crTable, "EE200", "25 Ohm Hall");
-  insertTuple(crTable, "PH100", "Newton Lab.");
+  insertTuple(crTable, "PH100", "Newton Lab");
   printTable(crTable);
+  printf("Delete Tuple with EE200 in 25 Ohm Hall\n");
+  deleteTuple(crTable, "EE200", "25 Ohm Hall");
+  printTable(crTable);
+  printf("Lookup Tuple with CSC101 in Turing Aud.\n");
+  lookup(crTable, "CS101", "Turing Aud");
+  //struct CR* cr = newCR("CS101", "Turing Aud");
+  //printf("%d\n", getCRKey(cr));
 }
