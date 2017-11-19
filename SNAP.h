@@ -8,7 +8,7 @@ struct SNAP {
   char* name;
   int studentID;
   char* address;
-  char* grade;
+  char* phone;
   struct SNAP* next;
 };
 
