@@ -49,19 +49,7 @@ int getHashKey(struct CDH* cdh) {
   return key % 1009;
 }
 
-void insertTuple(struct CDH** cdhTable, char* course, char* day, char* hour) {
-  struct CDH* cdhTemp = newCDH(course, day, hour);
-  int key = getHashKey(cdhTemp);
-  if(cdhTable[key] == NULL){
-    cdhTable[key] = cdhTemp;
-    //printf("hello");
-  } else{
-    while(cdhTable[key]->next != NULL){
-      cdhTable[key] = cdhTable[key]->next;
-    }
-    cdhTable[key]->next = cdhTemp;
-  }
-}
+
 
 void deleteTuple(struct CDH** cdhTable, char* course, char* day, char* hour){
   struct CDH* cdhTemp = newCDH(course, day, hour);
@@ -103,13 +91,35 @@ void printTable(struct CDH** cdhTable) {
   }
 }
 
+void insertTuple(struct CDH** cdhTable, char* course, char* day, char* hour) {
+  struct CDH* cdhTemp = newCDH(course, day, hour);
+  int key = getHashKey(cdhTemp);
+  if(cdhTable[key] == NULL) {
+    //printf("Inserted\n");
+    cdhTable[key] = cdhTemp;
+  } else {
+    while (cdhTable[key]->next != NULL) {
+      if (strcmp(cdhTable[key]->course, course) == 0 && strcmp(cdhTable[key]->day, day) == 0 && strcmp(cdhTable[key]->hour, hour) == 0) {
+        break;
+      }
+      cdhTable[key] = cdhTable[key]->next;
+    }
+  }
+
+  if (strcmp(cdhTable[key]->course, course) != 0 || strcmp(cdhTable[key]->day, day) != 0 || strcmp(cdhTable[key]->hour, hour) != 0) {
+    cdhTable[key]->next = cdhTemp;
+  }
+}
+
 void lookup(struct CDH** cdhTable, char* course, char* day, char* hour) {
   struct CDH* cdhTemp = newCDH(course, day, hour);
   struct CDH** cdhTableTemp = createTable();
   int broke = 0;
   int key = getHashKey(cdhTemp);
   while(cdhTable[key] != NULL) {
-    printf("%s \n", cdhTable[key]->hour);
+    //printf("Key: %d\n", key);
+    //printf("Course: %s. Day: %s. Hour: %s. Key %d\n", cdhTable[key]->course, cdhTable[key]->day, cdhTable[key]->hour, getHashKey(cdhTable[key]));
+    //printf("%s \n", cdhTable[key]->hour);
     if (strcmp(cdhTable[key]->course, course) == 0 && strcmp(cdhTable[key]->day, day) == 0) {
       insertTuple(cdhTableTemp, cdhTable[key]->course, cdhTable[key]->day, cdhTable[key]->hour);
       break;
@@ -118,12 +128,14 @@ void lookup(struct CDH** cdhTable, char* course, char* day, char* hour) {
       //printf("Reaches Here");
       cdhTable[key] = cdhTable[key]->next;
     }
+    //cdhTable[key] = cdhTable[key]->next;
   }
   printTable(cdhTableTemp);
 }
 
 int main(int argc, char* argv[]) {
   struct CDH** cdhTable = createTable();
+  insertTuple(cdhTable, "CS101", "M", "9AM");
   insertTuple(cdhTable, "CS101", "M", "9AM");
   insertTuple(cdhTable, "CS101", "W", "9AM");
   insertTuple(cdhTable, "CS101", "F", "9AM");
@@ -132,8 +144,8 @@ int main(int argc, char* argv[]) {
   insertTuple(cdhTable, "EE200", "W", "1PM");
   insertTuple(cdhTable, "EE200", "Th", "10AM");
   insertTuple(cdhTable, "PSY101", "M", "9AM");
-  deleteTuple(cdhTable, "PSY101", "M", "9AM");
   insertTuple(cdhTable, "STT213", "M", "9AM");
+  deleteTuple(cdhTable, "PSY101", "M", "9AM");
   deleteTuple(cdhTable, "STT213", "M", "9AM");
   printTable(cdhTable);
   printf("lookup********\n");
