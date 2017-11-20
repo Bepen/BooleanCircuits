@@ -124,7 +124,7 @@ void lookup(struct CDH** cdhTable, char* course, char* day, char* hour) {
 
 int main(int argc, char* argv[]) {
   struct CDH** cdhTable = createTable();
-  insertTuple(cdhTable, "CS101", "M", "9AM");
+  insertTuple(cdhTable, "CS101", "M", "9AM****");
   insertTuple(cdhTable, "CS101", "W", "9AM");
   insertTuple(cdhTable, "CS101", "F", "9AM");
   insertTuple(cdhTable, "EE200", "Tu", "10AM");
