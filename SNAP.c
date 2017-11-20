@@ -97,7 +97,7 @@ void printTable(struct SNAP** snapTable) {
 
 int main(int argc, char* argv[]) {
   struct SNAP** snapTable = createTable();
-  insertTuple(snapTable, 12345, "C. Brown", "12 Apple St.", "555-1234");
+  insertTuple(snapTable, 12345, "C. Brown", "12 Apple St.", "555-1234****");
   insertTuple(snapTable, 67890, "L. Van Pelt", "34 Pear Ave.", "555-5678");
   insertTuple(snapTable, 22222, "P. Patty", "56 Grape Blvd.", "555-9999");
   deleteTuple(snapTable, 22222, "P. Patty", "56 Grape Blvd.", "555-9999");
