@@ -45,6 +45,14 @@ void insertTuple(struct SNAP** snapTable, int studentID, char* name, char* addre
   }
 }
 
+void deleteTuple(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone) {
+  struct SNAP* snapTemp = newSNAP(studentID, name, address, phone);
+  struct SNAP* snapFiller = newSNAP(0, "", "", "");
+  if (studentID != 0 && strcmp(name, "*") != 0 && strcmp(address, "*") != 0 && strcmp(phone, "*") != 0) {
+    
+  }
+}
+
 void printTable(struct SNAP** snapTable) {
   for (int i = 0; i < 1009; i++) {
     if (snapTable[i] != NULL) {
