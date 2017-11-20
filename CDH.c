@@ -136,6 +136,6 @@ int main(int argc, char* argv[]) {
   insertTuple(cdhTable, "STT213", "M", "9AM");
   deleteTuple(cdhTable, "STT213", "M", "9AM");
   printTable(cdhTable);
-  printf("lookup********test\n");
+  printf("lookup********\n");
   lookup(cdhTable, "EE200", "Tu", "*");
 }
