@@ -272,7 +272,6 @@ void lookupCSG(struct CSG** csgTable, char* course, int studentID, char* grade) 
 int main(int argc, char* argv[]) {
   struct SNAP** snapTable = createSNAPTable();
   struct SNAP** snapTable2 = createSNAPTable();
-  struct CSG** csgTable = createCSGTable();
   insertSNAPTuple(snapTable, 12345, "C. Brown", "12 Apple St.", "555-1234");
   insertSNAPTuple(snapTable, 67890, "L. Van Pelt", "34 Pear Ave.", "555-5678");
   insertSNAPTuple(snapTable, 22222, "P. Patty", "56 Grape Blvd.", "555-9999");

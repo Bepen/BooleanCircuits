@@ -1,5 +1,5 @@
-all: SNAP.c
-	gcc -o hello SNAP.c
+all: StudentCourse.c
+	gcc -o hello StudentCourse.c
 	./hello
 	$ sudo make clean
 
