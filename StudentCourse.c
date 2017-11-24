@@ -95,7 +95,7 @@ void printSNAPTable(struct SNAP** snapTable) {
   }
 }
 
-void lookupSNAP(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone) {
+struct SNAP** lookupSNAP(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone) {
   struct SNAP* snapTemp = newSNAP(studentID, name, address, phone);
   struct SNAP** snapTableTemp = createSNAPTable();
   //Only Name is defined
@@ -119,7 +119,8 @@ void lookupSNAP(struct SNAP** snapTable, int studentID, char* name, char* addres
       }
     }
   }
-  printSNAPTable(snapTable);
+  return snapTableTemp;
+  //printSNAPTable(snapTable);
 }
 
 struct CSG* newCSG(char* course, int studentID, char* grade){
@@ -248,7 +249,7 @@ void printCSGTable(struct CSG** csgTable) {
   }
 }
 
-void lookupCSG(struct CSG** csgTable, char* course, int studentID, char* grade) {
+struct CSG** lookupCSG(struct CSG** csgTable, char* course, int studentID, char* grade) {
   struct CSG* csgTemp = newCSG(course, studentID, grade);
   struct CSG** csgTableTemp = createCSGTable();
   int broke = 0;
@@ -264,45 +265,65 @@ void lookupCSG(struct CSG** csgTable, char* course, int studentID, char* grade) 
       csgTable[key] = csgTable[key]->next;
     }
   }
-  printCSGTable(csgTableTemp);
+  return csgTableTemp;
+  //printCSGTable(csgTableTemp);
+}
+
+
+
+void printGrades(struct CSG** csgTableTemp, struct SNAP** snapTable, char* name, char* course) {
+  struct SNAP** snapTableName = createSNAPTable();
+  struct CSG** csgTableID = createCSGTable();
+  snapTableName = lookupSNAP(snapTable, 0, name, "*", "*");
+  //printSNAPTable(snapTableName);
+  for (int i = 0; i < 1009; i++) {
+    if (snapTableName[i] != NULL) {
+      while(snapTableName[i] != NULL) {
+        int tempID = snapTableName[i]->studentID;
+        //printf("TempID: %d\n", tempID);
+        for (int i = 0; i < 1009; i++) {
+          if (csgTableTemp[i] != NULL) {
+            //printf("Key: %d\n", i);
+            while(csgTableTemp[i] != NULL) {
+              //printf("Key: %d\n", i);
+              //printf("StudentID: %d\n", csgTableTemp[i]->studentID);
+              //printf("Course: %s\n", csgTableTemp[i]->course);
+              if (csgTableTemp[i]->studentID == tempID && strcmp(csgTableTemp[i]->course, course) == 0) {
+                printf("Grade for %s in %s: %s\n", name, course, csgTableTemp[i]->grade);
+              }
+              csgTableTemp[i] = csgTableTemp[i]->next;
+              if (csgTableTemp[i] == NULL) {
+                break;
+              }
+            }
+          }
+        }
+        snapTableName[i] = snapTableName[i]->next;
+        if (snapTableName[i] == NULL) {
+          break;
+        }
+      }
+    }
+  }
 }
 
 
 
 int main(int argc, char* argv[]) {
   struct SNAP** snapTable = createSNAPTable();
-  struct SNAP** snapTable2 = createSNAPTable();
   insertSNAPTuple(snapTable, 12345, "C. Brown", "12 Apple St.", "555-1234");
+  insertSNAPTuple(snapTable, 49192, "C. Brown", "31 Banana St.", "123-5432");
   insertSNAPTuple(snapTable, 67890, "L. Van Pelt", "34 Pear Ave.", "555-5678");
   insertSNAPTuple(snapTable, 22222, "P. Patty", "56 Grape Blvd.", "555-9999");
-  deleteSNAPTuple(snapTable, 22222, "P. Patty", "56 Grape Blvd.", "555-9999");
-  insertSNAPTuple(snapTable2, 12345, "C. Brown", "12 Apple St.", "555-1234");
-  insertSNAPTuple(snapTable2, 67890, "L. Van Pelt", "34 Pear Ave.", "555-5678");
-  insertSNAPTuple(snapTable2, 22222, "P. Patty", "56 Grape Blvd.", "555-9999");
-  deleteSNAPTuple(snapTable2, 22222, "P. Patty", "56 Grape Blvd.", "555-9999");
-  printSNAPTable(snapTable);
-  printf("Lookup***********\n");
-  lookupSNAP(snapTable2, 0, "C. Brown", "*", "*");
-  printf("**************************************\n");
   struct CSG** csgTable = createCSGTable();
-  printf("Inserted 8 different tuples: \n");
   insertCSGTuple(csgTable, "CS101", 12345, "A");
   insertCSGTuple(csgTable, "EE200", 12345, "C");
-  insertCSGTuple(csgTable, "EE200", 49192, "D");
   insertCSGTuple(csgTable, "PH100", 81824, "C-");
   insertCSGTuple(csgTable, "EN150", 20310, "D+");
   insertCSGTuple(csgTable, "EE200", 22222, "B+");
   insertCSGTuple(csgTable, "CS101", 33333, "A-");
   insertCSGTuple(csgTable, "PH100", 67890, "C+");
-  printf("Looking up the grade for student in CSC101 with an ID of 12345:\n");
-  lookupCSG(csgTable, "CSC101", 12345, "*");
-  printf("Deleting the student 20310 in EN150 with a D+: \n");
-  deleteCSGTuple(csgTable, "EN150", 20310, "D+");
-  printf("Deleting the student 12345: \n");
-  deleteCSGTuple(csgTable, "*", 12345, "*");
-  printf("Deleting all of the students in PH100\n");
-  deleteCSGTuple(csgTable, "PH100", 0, "*");
-  printCSGTable(csgTable);
   printf("******************************************************\n");
-
+  printf("Looking for C. Brown's grade in CS101\n");
+  printGrades(csgTable, snapTable, "C. Brown", "CS101");
 }

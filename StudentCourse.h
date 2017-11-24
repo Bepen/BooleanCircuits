@@ -27,12 +27,12 @@ int getSNAPHashKey(struct SNAP* snap);
 void insertSNAPTuple(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone);
 void deleteSNAPTuple(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone);
 void printSNAPTable(struct SNAP** snapTable);
-void lookupSNAP(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone);
+struct SNAP** lookupSNAP(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone);
 int getCSGHashKey(struct CSG* csg);
 void insertCSGTuple(struct CSG** csgTable, char* course, int studentID, char* grade);
 void deleteCSGTuple(struct CSG** csgTable, char* course, int studentID, char* grade);
 void printCSGTable(struct CSG** csgTable);
-void lookupCSG(struct CSG** csgTable, char* course, int studentID, char* grade);
+struct CSG** lookupCSG(struct CSG** csgTable, char* course, int studentID, char* grade);
 
 
 #endif
