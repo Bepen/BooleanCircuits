@@ -1,7 +1,7 @@
-all: CDH.c 
-	gcc -o hello CDH.c
+all: SNAP.c
+	gcc -o hello SNAP.c
 	./hello
 	$ sudo make clean
 
-clean: 
+clean:
 	$(RM) hello

@@ -14,5 +14,10 @@ struct CDH {
 
 struct CDH* newCDH(char* course, char* day, char* hour);
 struct CDH** createTable();
+int getHashKey(struct CDH* cdh);
+void deleteTuple(struct CDH** cdhTable, char* course, char* day, char* hour);
+void printTable(struct CDH** cdhTable);
+void insertTuple(struct CDH** cdhTable, char* course, char* day, char* hour);
+void lookup(struct CDH** cdhTable, char* course, char* day, char* hour);
 
 #endif

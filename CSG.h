@@ -13,5 +13,10 @@ struct CSG {
 
 struct CSG* newCSG(char* course, int studentID, char* grade);
 struct CSG** createTable();
+int getHashKey(struct CSG* csg);
+void insertTuple(struct CSG** csgTable, char* course, int studentID, char* grade);
+void deleteTuple(struct CSG** csgTable, char* course, int studentID, char* grade);
+void printTable(struct CSG** csgTable);
+void lookup(struct CSG** csgTable, char* course, int studentID, char* grade);
 
 #endif

@@ -70,18 +70,16 @@ void deleteTuple(struct CDH** cdhTable, char* course, char* day, char* hour){
   }
 }
 
-void printTable(struct CDH** cdhTable) {
+void printTable(struct CDH** cdhTable); {
   for (int i = 0; i < 1009; i++) {
-    if (cdhTable[i] != NULL) {
-      if (strcmp(cdhTable[i]->course, "") != 0) {
-        printf("Course: %s. Day: %s. Hour: %s. Key %d\n", cdhTable[i]->course, cdhTable[i]->day, cdhTable[i]->hour, getHashKey(cdhTable[i]));
-      }
-      while(cdhTable[i]->next != NULL){
+    if (cdhTable[i] != NULL) {]
+      //cdhTable[i] = cdhTable[i]->next;
+      while(cdhTable[i]->next!= NULL){
         if (strcmp(cdhTable[i]->course, "") == 0) {
           cdhTable[i] = cdhTable[i]->next;
         } else {
-          cdhTable[i] = cdhTable[i]->next;
           printf("Course: %s. Day: %s. Hour: %s. Key %d\n", cdhTable[i]->course, cdhTable[i]->day, cdhTable[i]->hour, getHashKey(cdhTable[i]));
+          cdhTable[i] = cdhTable[i]->next;
         }
         if (cdhTable[i]->next == NULL) {
           break;
