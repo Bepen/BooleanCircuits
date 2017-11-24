@@ -16,18 +16,18 @@ struct SNAP* newSNAP(int studentID, char* name, char* address, char* phone) {
   return snap;
 }
 
-struct SNAP** createTable() {
+struct SNAP** createSNAPTable() {
   struct SNAP** snapTab = malloc(1009*sizeof(struct SNAP));
   return snapTab;
 }
 
-int getHashKey(struct SNAP* snap) {
+int getSNAPHashKey(struct SNAP* snap) {
   return snap->studentID % 1009;
 }
 
-void insertTuple(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone) {
+void insertSNAPTuple(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone) {
   struct SNAP* snapTemp = newSNAP(studentID, name, address, phone);
-  int key = getHashKey(snapTemp);
+  int key = getSNAPHashKey(snapTemp);
   if(snapTable[key] == NULL) {
     //printf("Inserted\n");
     snapTable[key] = snapTemp;
@@ -45,11 +45,11 @@ void insertTuple(struct SNAP** snapTable, int studentID, char* name, char* addre
   }
 }
 
-void deleteTuple(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone) {
+void deleteSNAPTuple(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone) {
   struct SNAP* snapTemp = newSNAP(studentID, name, address, phone);
   struct SNAP* snapFiller = newSNAP(0, "", "", "");
   if (studentID != 0 && strcmp(name, "*") != 0 && strcmp(address, "*") != 0 && strcmp(phone, "*") != 0) {
-    int key = getHashKey(snapTemp);
+    int key = getSNAPHashKey(snapTemp);
     if (strcmp(snapTable[key]->name, name) == 0 && strcmp(snapTable[key]->address, address) == 0 && snapTable[key]->studentID == studentID && strcmp(snapTable[key]->phone, phone) == 0) {
       //printf("Reaches Here");
       snapTable[key] = snapFiller;
@@ -72,7 +72,7 @@ void deleteTuple(struct SNAP** snapTable, int studentID, char* name, char* addre
 }
 
 
-void printTable(struct SNAP** snapTable) {
+void printSNAPTable(struct SNAP** snapTable) {
   for (int i = 0; i < 1009; i++) {
     if (snapTable[i] != NULL) {
       while(snapTable[i] != NULL){
@@ -83,7 +83,7 @@ void printTable(struct SNAP** snapTable) {
         }
         else {
           //printf("Else Statement\n");
-          printf("Student ID: %d. Name: %s. Address: %s. Phone: %s. Key %d\n", snapTable[i]->studentID, snapTable[i]->name, snapTable[i]->address, snapTable[i]->phone, getHashKey(snapTable[i]));
+          printf("Student ID: %d. Name: %s. Address: %s. Phone: %s. Key %d\n", snapTable[i]->studentID, snapTable[i]->name, snapTable[i]->address, snapTable[i]->phone, getSNAPHashKey(snapTable[i]));
           snapTable[i] = snapTable[i]->next;
         }
         if (snapTable[i] == NULL) {
@@ -95,9 +95,9 @@ void printTable(struct SNAP** snapTable) {
   }
 }
 
-void lookup(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone) {
+void lookupSNAP(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone) {
   struct SNAP* snapTemp = newSNAP(studentID, name, address, phone);
-  struct SNAP** snapTableTemp = createTable();
+  struct SNAP** snapTableTemp = createSNAPTable();
   //Only Name is defined
   if (studentID == 0 && strcmp(address, "*") == 0 && strcmp(phone, "*") == 0) {
     //printf("Enters\n");
@@ -106,7 +106,7 @@ void lookup(struct SNAP** snapTable, int studentID, char* name, char* address, c
         //printf("Enters at %d:\n", i);
         while(snapTable[i] != NULL) {
           if (strcmp(snapTable[i]->name, name) == 0) {
-            insertTuple(snapTableTemp, snapTable[i]->studentID, snapTable[i]->name, snapTable[i]->address, snapTable[i]->phone);
+            insertSNAPTuple(snapTableTemp, snapTable[i]->studentID, snapTable[i]->name, snapTable[i]->address, snapTable[i]->phone);
             break;
           } else {
             snapTable[i] = snapTable[i]->next;
@@ -119,21 +119,21 @@ void lookup(struct SNAP** snapTable, int studentID, char* name, char* address, c
       }
     }
   }
-  printTable(snapTable);
+  printSNAPTable(snapTable);
 }
 
 int main(int argc, char* argv[]) {
-  struct SNAP** snapTable = createTable();
-  struct SNAP** snapTable2 = createTable();
-  insertTuple(snapTable, 12345, "C. Brown", "12 Apple St.", "555-1234");
-  insertTuple(snapTable, 67890, "L. Van Pelt", "34 Pear Ave.", "555-5678");
-  insertTuple(snapTable, 22222, "P. Patty", "56 Grape Blvd.", "555-9999");
-  deleteTuple(snapTable, 22222, "P. Patty", "56 Grape Blvd.", "555-9999");
-  insertTuple(snapTable2, 12345, "C. Brown", "12 Apple St.", "555-1234");
-  insertTuple(snapTable2, 67890, "L. Van Pelt", "34 Pear Ave.", "555-5678");
-  insertTuple(snapTable2, 22222, "P. Patty", "56 Grape Blvd.", "555-9999");
-  deleteTuple(snapTable2, 22222, "P. Patty", "56 Grape Blvd.", "555-9999");
-  printTable(snapTable);
+  struct SNAP** snapTable = createSNAPTable();
+  struct SNAP** snapTable2 = createSNAPTable();
+  insertSNAPTuple(snapTable, 12345, "C. Brown", "12 Apple St.", "555-1234");
+  insertSNAPTuple(snapTable, 67890, "L. Van Pelt", "34 Pear Ave.", "555-5678");
+  insertSNAPTuple(snapTable, 22222, "P. Patty", "56 Grape Blvd.", "555-9999");
+  deleteSNAPTuple(snapTable, 22222, "P. Patty", "56 Grape Blvd.", "555-9999");
+  insertSNAPTuple(snapTable2, 12345, "C. Brown", "12 Apple St.", "555-1234");
+  insertSNAPTuple(snapTable2, 67890, "L. Van Pelt", "34 Pear Ave.", "555-5678");
+  insertSNAPTuple(snapTable2, 22222, "P. Patty", "56 Grape Blvd.", "555-9999");
+  deleteSNAPTuple(snapTable2, 22222, "P. Patty", "56 Grape Blvd.", "555-9999");
+  printSNAPTable(snapTable);
   printf("Lookup***********\n");
-  lookup(snapTable2, 0, "C. Brown", "*", "*");
+  lookupSNAP(snapTable2, 0, "C. Brown", "*", "*");
 }

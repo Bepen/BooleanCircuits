@@ -13,10 +13,10 @@ struct SNAP {
 };
 
 struct SNAP* newSNAP(int studentID, char* name, char* address, char* grade);
-struct SNAP** createTable();
-int getHashKey(struct SNAP* snap);
-void insertTuple(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone);
-void deleteTuple(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone);
-void printTable(struct SNAP** snapTable);
+struct SNAP** createSNAPTable();
+int getSNAPHashKey(struct SNAP* snap);
+void insertSNAPTuple(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone);
+void deleteSNAPTuple(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone);
+void printSNAPTable(struct SNAP** snapTable);
 
 #endif
