@@ -14,18 +14,18 @@ struct CSG* newCSG(char* course, int studentID, char* grade){
   return csg;
 }
 
-struct CSG** createTable() {
+struct CSG** createCSGTable() {
   struct CSG** csgTab = malloc(1009*sizeof(struct CSG));
   return csgTab;
 }
 
-int getHashKey(struct CSG* csg) {
+int getCSGHashKey(struct CSG* csg) {
   return csg->studentID % 1009;
 }
 
-void insertTuple(struct CSG** csgTable, char* course, int studentID, char* grade) {
+void insertCSGTuple(struct CSG** csgTable, char* course, int studentID, char* grade) {
   struct CSG* csgTemp = newCSG(course, studentID, grade);
-  int key = getHashKey(csgTemp);
+  int key = getCSGHashKey(csgTemp);
   if(csgTable[key] == NULL){
     csgTable[key] = csgTemp;
     //printf("hello");
@@ -38,7 +38,7 @@ void insertTuple(struct CSG** csgTable, char* course, int studentID, char* grade
   //csgTable[key] = csgTemp;
 }
 
-void deleteTuple(struct CSG** csgTable, char* course, int studentID, char* grade) {
+void deleteCSGTuple(struct CSG** csgTable, char* course, int studentID, char* grade) {
   struct CSG* csgTemp = newCSG(course, studentID, grade);
   struct CSG* csgFiller = newCSG("", 0, "");
   char string[50];
@@ -47,7 +47,7 @@ void deleteTuple(struct CSG** csgTable, char* course, int studentID, char* grade
   //all three defined
   if (strcmp(course, "*") != 0 && strcmp(idString, "*") != 0 && strcmp(grade, "*") != 0) {
     //printf("Gets here");
-    int key = getHashKey(csgTemp);
+    int key = getCSGHashKey(csgTemp);
     if (strcmp(csgTable[key]->course, course) == 0 && strcmp(csgTable[key]->grade, grade) == 0 && csgTable[key]->studentID == studentID) {
       //printf("Reaches Here");
       csgTable[key] = csgFiller;
@@ -65,7 +65,7 @@ void deleteTuple(struct CSG** csgTable, char* course, int studentID, char* grade
   }
   //only studentID defined
   else if (strcmp(course, "*") == 0 && strcmp(grade, "*") == 0) {
-    int key = getHashKey(csgTemp);
+    int key = getCSGHashKey(csgTemp);
     while(csgTable[key]->next != NULL) {
       if (csgTable[key]->studentID == studentID) {
         //printf("Reaches Here");
@@ -107,18 +107,18 @@ void deleteTuple(struct CSG** csgTable, char* course, int studentID, char* grade
   }
 }
 
-void printTable(struct CSG** csgTable) {
+void printCSGTable(struct CSG** csgTable) {
   for (int i = 0; i < 1009; i++) {
     if (csgTable[i] != NULL) {
       if (strcmp(csgTable[i]->course, "") != 0) {
-        printf("Course: %s. Student ID: %d. Grade: %s. Key %d\n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade, getHashKey(csgTable[i]));
+        printf("Course: %s. Student ID: %d. Grade: %s. Key %d\n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade, getCSGHashKey(csgTable[i]));
       }
       while(csgTable[i]->next != NULL){
         if (strcmp(csgTable[i]->course, "") == 0) {
           csgTable[i] = csgTable[i]->next;
         } else {
           csgTable[i] = csgTable[i]->next;
-          printf("Course: %s. Student ID: %d. Grade: %s, Key: %d\n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade, getHashKey(csgTable[i]));
+          printf("Course: %s. Student ID: %d. Grade: %s, Key: %d\n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade, getCSGHashKey(csgTable[i]));
         }
 
         if (csgTable[i]->next == NULL) {
@@ -129,15 +129,15 @@ void printTable(struct CSG** csgTable) {
   }
 }
 
-void lookup(struct CSG** csgTable, char* course, int studentID, char* grade) {
+void lookupCSG(struct CSG** csgTable, char* course, int studentID, char* grade) {
   struct CSG* csgTemp = newCSG(course, studentID, grade);
-  struct CSG** csgTableTemp = createTable();
+  struct CSG** csgTableTemp = createCSGTable();
   int broke = 0;
-  int key = getHashKey(csgTemp);
+  int key = getCSGHashKey(csgTemp);
   while(csgTable[key]->next != NULL) {
     if (csgTable[key]->studentID == studentID && strcmp(csgTable[key]->course, course)) {
       //printf("Reaches Here");
-      insertTuple(csgTableTemp, csgTable[key]->course, csgTable[key]->studentID, csgTable[key]->grade);
+      insertCSGTuple(csgTableTemp, csgTable[key]->course, csgTable[key]->studentID, csgTable[key]->grade);
       break;
       broke = 1;
     } else {
@@ -145,27 +145,27 @@ void lookup(struct CSG** csgTable, char* course, int studentID, char* grade) {
       csgTable[key] = csgTable[key]->next;
     }
   }
-  printTable(csgTableTemp);
+  printCSGTable(csgTableTemp);
 }
 
 int main(int argc, char* argv[]) {
-  struct CSG** csgTable = createTable();
+  struct CSG** csgTable = createCSGTable();
   printf("Inserted 8 different tuples: \n");
-  insertTuple(csgTable, "CS101", 12345, "A");
-  insertTuple(csgTable, "EE200", 12345, "C");
-  insertTuple(csgTable, "EE200", 49192, "D");
-  insertTuple(csgTable, "PH100", 81824, "C-");
-  insertTuple(csgTable, "EN150", 20310, "D+");
-  insertTuple(csgTable, "EE200", 22222, "B+");
-  insertTuple(csgTable, "CS101", 33333, "A-");
-  insertTuple(csgTable, "PH100", 67890, "C+");
+  insertCSGTuple(csgTable, "CS101", 12345, "A");
+  insertCSGTuple(csgTable, "EE200", 12345, "C");
+  insertCSGTuple(csgTable, "EE200", 49192, "D");
+  insertCSGTuple(csgTable, "PH100", 81824, "C-");
+  insertCSGTuple(csgTable, "EN150", 20310, "D+");
+  insertCSGTuple(csgTable, "EE200", 22222, "B+");
+  insertCSGTuple(csgTable, "CS101", 33333, "A-");
+  insertCSGTuple(csgTable, "PH100", 67890, "C+");
   printf("Looking up the grade for student in CSC101 with an ID of 12345:\n");
-  lookup(csgTable, "CSC101", 12345, "*");
+  lookupCSG(csgTable, "CSC101", 12345, "*");
   printf("Deleting the student 20310 in EN150 with a D+: \n");
-  deleteTuple(csgTable, "EN150", 20310, "D+");
+  deleteCSGTuple(csgTable, "EN150", 20310, "D+");
   printf("Deleting the student 12345: \n");
-  deleteTuple(csgTable, "*", 12345, "*");
+  deleteCSGTuple(csgTable, "*", 12345, "*");
   printf("Deleting all of the students in PH100\n");
-  deleteTuple(csgTable, "PH100", 0, "*");
-  printTable(csgTable);
+  deleteCSGTuple(csgTable, "PH100", 0, "*");
+  printCSGTable(csgTable);
 }

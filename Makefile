@@ -1,7 +1,7 @@
-all: CDH.c 
-	gcc -o hello CDH.c
+all: StudentCourse.c
+	gcc -o hello StudentCourse.c
 	./hello
 	$ sudo make clean
 
-clean: 
+clean:
 	$(RM) hello

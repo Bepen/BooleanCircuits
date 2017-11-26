@@ -12,6 +12,11 @@ struct CSG {
 };
 
 struct CSG* newCSG(char* course, int studentID, char* grade);
-struct CSG** createTable();
+struct CSG** createCSGTable();
+int getCSGHashKey(struct CSG* csg);
+void insertCSGTuple(struct CSG** csgTable, char* course, int studentID, char* grade);
+void deleteCSGTuple(struct CSG** csgTable, char* course, int studentID, char* grade);
+void printCSGTable(struct CSG** csgTable);
+void lookupCSG(struct CSG** csgTable, char* course, int studentID, char* grade);
 
 #endif
