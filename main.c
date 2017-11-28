@@ -16,8 +16,12 @@ int main(int argc, char* argv[]) {
   runSNAP();
   runCDH();
 <<<<<<< HEAD
+<<<<<<< HEAD
   runCP();
 =======
+=======
+  runCP();
+>>>>>>> c1e2bad35f268626e9f7f7fd5811cab8f88a4c45
   //problem2a();
   problem3();
 >>>>>>> e655297cf3bc5261dcfd535963b15c87cb7bacda
