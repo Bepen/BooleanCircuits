@@ -253,15 +253,29 @@ struct CSG** lookupCSG(struct CSG** csgTable, char* course, int studentID, char*
   struct CSG** csgTableTemp = createCSGTable();
   int broke = 0;
   int key = getCSGHashKey(csgTemp);
-  while(csgTable[key]->next != NULL) {
-    if (csgTable[key]->studentID == studentID && strcmp(csgTable[key]->course, course)) {
-      //printf("Reaches Here");
-      insertCSGTuple(csgTableTemp, csgTable[key]->course, csgTable[key]->studentID, csgTable[key]->grade);
-      break;
-      broke = 1;
-    } else {
-      //printf("Reaches Here");
-      csgTable[key] = csgTable[key]->next;
+  if (strcmp(course, "*") == 0 && strcmp(grade, "*") == 0) {
+    while(csgTable[key] != NULL) {
+      if (csgTable[key]->studentID == studentID) {
+        //printf("Reaches Here");
+        insertCSGTuple(csgTableTemp, csgTable[key]->course, csgTable[key]->studentID, csgTable[key]->grade);
+        broke = 1;
+        csgTable[key] = csgTable[key]->next;
+      } else {
+        //printf("Reaches Here");
+        csgTable[key] = csgTable[key]->next;
+      }
+    }
+  } else {
+    while(csgTable[key]->next != NULL) {
+      if (csgTable[key]->studentID == studentID && strcmp(csgTable[key]->course, course)) {
+        //printf("Reaches Here");
+        insertCSGTuple(csgTableTemp, csgTable[key]->course, csgTable[key]->studentID, csgTable[key]->grade);
+        break;
+        broke = 1;
+      } else {
+        //printf("Reaches Here");
+        csgTable[key] = csgTable[key]->next;
+      }
     }
   }
   return csgTableTemp;
@@ -530,15 +544,73 @@ struct CR** lookupCR(struct CR** crTable, char* course, char* room) {
   return crTable;
 }
 
+void printLocation(struct SNAP** snapTable, struct CSG** csgTable, struct CDH** cdhTable, struct CR** crTable, char* name, char* day, char* time) {
+  struct SNAP** snapTableName = lookupSNAP(snapTable, 0, name, "*", "*");
+  int studentID = 0;
+  for (int i = 0; i < 1009; i++) {
+    if (snapTableName[i] != NULL) {
+      while(snapTableName[i] != NULL) {
+        studentID = snapTableName[i]->studentID;
+        break;
+        snapTableName[i] = snapTableName[i]->next;
+        if (snapTableName[i] == NULL) {
+          break;
+        }
+      }
+    }
+  }
+  char* course  = "*****";
+  //printf("StudentID: %d\n", studentID);
+  struct CSG** csgTableID = lookupCSG(csgTable, "*", studentID, "*");
+  struct CDH** cdhTableComp;
+  //printCSGTable(csgTableID);
+  for (int i = 0; i < 1009; i++) {
+    if (csgTableID[i] != NULL) {
+      //printf("Index: %d\n", i);
+      while(csgTableID[i] != NULL) {
+        //printf("Course: %s\n", csgTableID[i]->course);
+        cdhTableComp = lookupCDH(cdhTable, csgTableID[i]->course, day, time);
+        for (int j = 0; j < 1009; j++) {
+          if (cdhTableComp[j] != NULL) {
+            course = cdhTableComp[j]->course;
+            break;
+          }
+        }
+        csgTableID[i] = csgTableID[i]->next;
+        if (csgTableID[i] == NULL) {
+          break;
+        }
+      }
+    }
+  }
+  char* room = "*****";
+  //printf("Final Course: %s\n", course);
+  if (strcmp(course , "*****") == 0) {
+    printf("%s is not taking a class at %s on %s.", name, time, day);
+  } else {
+    for (int i = 0; i < 1009; i++) {
+      if (crTable[i] != NULL) {
+        while (crTable[i] != NULL) {
+          if (strcmp(crTable[i]->course, course) == 0) {
+            //printf("Comparison True\n");
+            room = crTable[i]->room;
+          }
+          crTable[i] = crTable[i]->next;
+        }
+      }
+    }
+    printf("Where is %s at %s on %s: %s\n", name, time, day, room);
+  }
+}
+
 int main(int argc, char* argv[]) {
   struct SNAP** snapTable = createSNAPTable();
-  printf("Tables Are Below: \n");
+  printf("INSERTING VALUES... \n");
   insertSNAPTuple(snapTable, 12345, "C. Brown", "12 Apple St.", "555-1234");
-  insertSNAPTuple(snapTable, 49192, "C. Brown", "31 Banana St.", "123-5432");
   insertSNAPTuple(snapTable, 67890, "L. Van Pelt", "34 Pear Ave.", "555-5678");
   insertSNAPTuple(snapTable, 22222, "P. Patty", "56 Grape Blvd.", "555-9999");
-  printSNAPTable(snapTable);
-  printf("*****************************\n");
+  //printSNAPTable(snapTable);
+  //printf("*****************************\n");
   struct CSG** csgTable = createCSGTable();
   insertCSGTuple(csgTable, "CS101", 12345, "A");
   insertCSGTuple(csgTable, "EE200", 12345, "C");
@@ -547,8 +619,10 @@ int main(int argc, char* argv[]) {
   insertCSGTuple(csgTable, "EE200", 22222, "B+");
   insertCSGTuple(csgTable, "CS101", 33333, "A-");
   insertCSGTuple(csgTable, "PH100", 67890, "C+");
-  printCSGTable(csgTable);
-  printf("*****************************\n");
+  //printf("Finished insertion:\n");
+  //printCSGTable(lookupCSG(csgTable, "*", 12345, "*"));
+  //printCSGTable(csgTable);
+  //printf("*****************************\n");
   struct CDH** cdhTable = createCDHTable();
   insertCDHTuple(cdhTable, "CS101", "M", "9AM");
   insertCDHTuple(cdhTable, "CS101", "W", "9AM");
@@ -556,12 +630,13 @@ int main(int argc, char* argv[]) {
   insertCDHTuple(cdhTable, "EE200", "Tu", "10AM");
   insertCDHTuple(cdhTable, "EE200", "W", "1PM");
   insertCDHTuple(cdhTable, "EE200", "Th", "10AM");
-  printCDHTable(cdhTable);
-  printf("*****************************\n");
+  //printCDHTable(cdhTable);
+  //printf("*****************************\n");
   struct CR** crTable = createCRTable();
   insertCRTuple(crTable, "CS101", "Turing Aud");
   insertCRTuple(crTable, "EE200", "25 Ohm Hall");
   insertCRTuple(crTable, "PH100", "Newton Lab");
-  printCRTable(crTable);
-  printf("*****************************\n");
+  //printCRTable(crTable);
+  //printf("*****************************\n");
+  printLocation(snapTable, csgTable, cdhTable, crTable, "C. Brown", "M", "9AM");
 }
