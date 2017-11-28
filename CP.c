@@ -13,7 +13,7 @@ struct CP* newCP(char* course, char* preReq){
   return cp;
 }
 
-struct CP** createTable() {
+struct CP** createCPTable() {
   struct CP** cpTab = malloc(1009*sizeof(struct CP));
   return cpTab;
 }
@@ -32,7 +32,7 @@ int getCPKey(struct CP* cp) {
     return key%1009;
 }
 
-void insertTuple(struct CP** cpTable, char* course, char* preReq) {
+void insertCPTuple(struct CP** cpTable, char* course, char* preReq) {
   struct CP* cpTemp = newCP(course, preReq);
   int key = getCPKey(cpTemp);
   if (cpTable[key] == NULL) {
@@ -50,7 +50,7 @@ void insertTuple(struct CP** cpTable, char* course, char* preReq) {
   }
 }
 
-void deleteTuple(struct CP** cpTable, char* course, char* preReq) {
+void deleteCPTuple(struct CP** cpTable, char* course, char* preReq) {
   struct CP* cpFiller = newCP("", "");
   struct CP* cpTemp = newCP(course, preReq);
   if (strcmp(preReq, "*") == 0) {
@@ -91,7 +91,7 @@ void deleteTuple(struct CP** cpTable, char* course, char* preReq) {
   }
 }
 
-void printTable(struct CP** cpTable) {
+void printCPTable(struct CP** cpTable) {
   for (int i = 0; i < 1009; i++) {
     if (cpTable[i] != NULL) {
       if (strcmp(cpTable[i]->course, "") != 0) {
@@ -112,51 +112,53 @@ void printTable(struct CP** cpTable) {
   }
 }
 
-void lookup(struct CP** cpTable, char* course, char* preReq) {
+void lookupCP(struct CP** cpTable, char* course, char* preReq) {
   struct CP* cpTemp = newCP(course, preReq);
-  struct CP** cpTempTable = createTable();
+  struct CP** cpTempTable = createCPTable();
   int key = getCPKey(cpTemp);
   if (cpTable[key] == NULL) {
     return;
   }
   while (cpTable[key]->next != NULL) {
     if (strcmp(cpTable[key]->course, course) == 0 && strcmp(cpTable[key]->preReq, preReq) == 0) {
-      insertTuple(cpTempTable, course, preReq);
+      insertCPTuple(cpTempTable, course, preReq);
       break;
     } else {
       cpTable[key] = cpTable[key]->next;
     }
   }
   if (strcmp(cpTable[key]->course, course) == 0 && strcmp(cpTable[key]->preReq, preReq) == 0) {
-    insertTuple(cpTempTable, course, preReq);
+    insertCPTuple(cpTempTable, course, preReq);
   }
-  printTable(cpTempTable);
+  printCPTable(cpTempTable);
 }
 
 
-int main(int argc, char* argv[]) {
+void runCP() {
   /*
   struct CP* cpTemp = newCP("coolg", "hehex");
   printf("%d", getCPKey(cpTemp));
   */
-  struct CP** cpTable = createTable();
-  printf("Filling Table\n");
-  insertTuple(cpTable, "CS101", "CS100");
-  insertTuple(cpTable, "EE200", "EE005");
-  insertTuple(cpTable, "EE200", "CS100");
-  insertTuple(cpTable, "CS120", "CS101");
-  insertTuple(cpTable, "CS121", "CS120");
-  insertTuple(cpTable, "CS205", "CS101");
-  insertTuple(cpTable, "CS205", "CS120");
-  insertTuple(cpTable, "CS206", "CS121");
-  insertTuple(cpTable, "CS206", "CS205");
-  insertTuple(cpTable, "CS120", "CS101");
-  deleteTuple(cpTable, "CS120", "*");
-  deleteTuple(cpTable, "EE200", "CS100");
+  struct CP** cpTable = createCPTable();
+  printf("\nRunning CP Relation***********************\n");
+  insertCPTuple(cpTable, "CS101", "CS100");
+  insertCPTuple(cpTable, "EE200", "EE005");
+  insertCPTuple(cpTable, "EE200", "CS100");
+  insertCPTuple(cpTable, "CS120", "CS101");
+  insertCPTuple(cpTable, "CS121", "CS120");
+  insertCPTuple(cpTable, "CS205", "CS101");
+  insertCPTuple(cpTable, "CS205", "CS120");
+  insertCPTuple(cpTable, "CS206", "CS121");
+  insertCPTuple(cpTable, "CS206", "CS205");
+  insertCPTuple(cpTable, "CS120", "CS101");
+  deleteCPTuple(cpTable, "CS120", "*");
+  deleteCPTuple(cpTable, "EE200", "CS100");
   printf("Looking for course CS101 with preReq of CS100:\n");
-  lookup(cpTable, "CS101", "CS100");
+  lookupCP(cpTable, "CS101", "CS100");
   printf("Looking for course CS100 with preReq of EN150:\n");
-  lookup(cpTable, "CS100", "EN150");
+  lookupCP(cpTable, "CS100", "EN150");
   printf("\n");
-  printTable(cpTable);
+  printCPTable(cpTable);
+  printf("Ending CP Relation***********************\n");
+
 }
