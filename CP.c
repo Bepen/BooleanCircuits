@@ -141,6 +141,7 @@ void runCP() {
   */
   struct CP** cpTable = createCPTable();
   printf("\nRunning CP Relation***********************\n");
+  printf("Inserting 10 different tuples: \n");
   insertCPTuple(cpTable, "CS101", "CS100");
   insertCPTuple(cpTable, "EE200", "EE005");
   insertCPTuple(cpTable, "EE200", "CS100");
@@ -153,9 +154,8 @@ void runCP() {
   insertCPTuple(cpTable, "CS120", "CS101");
   deleteCPTuple(cpTable, "CS120", "*");
   deleteCPTuple(cpTable, "EE200", "CS100");
-  printf("Looking for course CS101 with preReq of CS100:\n");
+  printf("Looking for course CS101 with prerequisite of CS100:\n");
   lookupCP(cpTable, "CS101", "CS100");
-  printf("Looking for course CS100 with preReq of EN150:\n");
   lookupCP(cpTable, "CS100", "EN150");
   printf("\n");
   printCPTable(cpTable);
