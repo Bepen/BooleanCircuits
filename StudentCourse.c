@@ -283,12 +283,12 @@ void printGrades(struct CSG** csgTableTemp, struct SNAP** snapTable, char* name,
     if (snapTableName[i] != NULL) {
       while(snapTableName[i] != NULL) {
         int tempID = snapTableName[i]->studentID;
-        printf("TempID: %d\n", tempID);
+        //printf("TempID: %d\n", tempID);
         for (int i = 0; i < 1009; i++) {
           if (csgTableTemp[i] != NULL) {
             //printf("Key: %d\n", i);
             while(csgTableTemp[i] != NULL) {
-              printf("Key: %d\n", i);
+              //printf("Key: %d\n", i);
               //printf("StudentID: %d\n", csgTableTemp[i]->studentID);
               //printf("Course: %s\n", csgTableTemp[i]->course);
               if (csgTableTemp[i]->studentID == tempID && strcmp(csgTableTemp[i]->course, course) == 0) {
