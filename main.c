@@ -14,6 +14,7 @@ int main(int argc, char* argv[]) {
   runCSG();
   runSNAP();
   runCDH();
+  runCP();
   //problem2a();
   problem3();
   return 0;

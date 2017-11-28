@@ -55,7 +55,7 @@ void insertRATuple(struct RA** raTable, char* course, int studentID, char* grade
   }
 }
 
-//struct RA** select(struct RA** raTable, )
+struct RA** select(struct RA** raTable, char* query, char* )
 
 struct RA** project(struct RA** raTable, char* query) {
   struct RA** raTemp = createRATable();
