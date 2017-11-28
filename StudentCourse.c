@@ -310,9 +310,7 @@ void printGrades(struct CSG** csgTableTemp, struct SNAP** snapTable, char* name,
   }
 }
 
-
-
-int main(int argc, char* argv[]) {
+void problem2a() {
   struct SNAP** snapTable = createSNAPTable();
   insertSNAPTuple(snapTable, 12345, "C. Brown", "12 Apple St.", "555-1234");
   insertSNAPTuple(snapTable, 49192, "C. Brown", "31 Banana St.", "123-5432");

@@ -55,6 +55,8 @@ void insertRATuple(struct RA** raTable, char* course, int studentID, char* grade
   }
 }
 
+//struct RA** select(struct RA** raTable, )
+
 struct RA** project(struct RA** raTable, char* query) {
   struct RA** raTemp = createRATable();
   for (int i = 0; i < 1009; i++) {
@@ -89,7 +91,7 @@ struct RA** project(struct RA** raTable, char* query) {
   return raTemp;
 }
 
-struct
+//struct
 
 
 void printRATable(struct RA** raTable) {
@@ -105,7 +107,7 @@ void printRATable(struct RA** raTable) {
 }
 
 
-int main(int argc, char* argv[]) {
+void problem3() {
   struct RA** raTable = createRATable();
   insertRATuple(raTable, "CS101", 12345, "A", "C. Brown", "34 Apple St.", "555-1234", "CS100", "M", "9AM", "Turing Aud.");
   insertRATuple(raTable, "EE200", 55555, "B", "P. Patty", "45 Pear St.", "555-5678", "CS101", "T", "10AM", "25 Ohm Hall");
