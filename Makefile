@@ -1,5 +1,5 @@
-all: StudentCourse.c
-	gcc -o hello StudentCourse.c
+all: NameTimeDay.c
+	gcc -o hello NameTimeDay.c
 	./hello
 	$ sudo make clean
 
