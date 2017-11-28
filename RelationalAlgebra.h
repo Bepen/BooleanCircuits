@@ -6,7 +6,7 @@
 
 #endif
 
-struct RelationalAlgebra {
+struct RA {
   char* course;
   int studentID;
   char* grade;
@@ -17,13 +17,13 @@ struct RelationalAlgebra {
   char* day;
   char* hour;
   char* room;
-  struct RelationalAlgebra* next;
+  struct RA* next;
 };
 
-struct RelationalAlgebra* newRA(char* course, int studentID,
+struct RA* newRA(char* course, int studentID,
                                 char* grade,char* name, char* address,
                                 char* phone,char* preReq,
                                 char* day, char* hour,char* room);
 
-struct RelationalAlgebra** createRATable();
+struct RA** createRATable();
 int main(int argc, char* argv[]);
