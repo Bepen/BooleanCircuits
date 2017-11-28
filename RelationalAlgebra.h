@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#endif
+
 
 struct RA {
   char* course;
@@ -26,4 +26,4 @@ struct RA* newRA(char* course, int studentID,
                                 char* day, char* hour,char* room);
 
 struct RA** createRATable();
-int main(int argc, char* argv[]);
+#endif
