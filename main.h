@@ -4,6 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#endif
-
 int main(int argc, char* argv[]);
+
+#endif

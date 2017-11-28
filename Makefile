@@ -1,5 +1,5 @@
-all: NameTimeDay.c
-	gcc -o hello NameTimeDay.c
+all: main.c
+	gcc -o hello main.c -Wall -Werror
 	./hello
 	$ sudo make clean
 

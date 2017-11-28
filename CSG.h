@@ -18,5 +18,5 @@ void insertCSGTuple(struct CSG** csgTable, char* course, int studentID, char* gr
 void deleteCSGTuple(struct CSG** csgTable, char* course, int studentID, char* grade);
 void printCSGTable(struct CSG** csgTable);
 void lookupCSG(struct CSG** csgTable, char* course, int studentID, char* grade);
-
+void runCSG();
 #endif

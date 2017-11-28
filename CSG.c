@@ -111,14 +111,14 @@ void printCSGTable(struct CSG** csgTable) {
   for (int i = 0; i < 1009; i++) {
     if (csgTable[i] != NULL) {
       if (strcmp(csgTable[i]->course, "") != 0) {
-        printf("Course: %s. Student ID: %d. Grade: %s. Key %d\n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade, getCSGHashKey(csgTable[i]));
+        printf("Course: %s  Student ID: %d  Grade: %s \n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade);
       }
       while(csgTable[i]->next != NULL){
         if (strcmp(csgTable[i]->course, "") == 0) {
           csgTable[i] = csgTable[i]->next;
         } else {
           csgTable[i] = csgTable[i]->next;
-          printf("Course: %s. Student ID: %d. Grade: %s, Key: %d\n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade, getCSGHashKey(csgTable[i]));
+          printf("Course: %s  Student ID: %d  Grade: %s  \n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade);
         }
 
         if (csgTable[i]->next == NULL) {
@@ -162,9 +162,18 @@ void lookupCSG(struct CSG** csgTable, char* course, int studentID, char* grade) 
   printCSGTable(csgTableTemp);
 }
 
-int main(int argc, char* argv[]) {
+void runCSG() {
   struct CSG** csgTable = createCSGTable();
-  printf("Inserted 8 different tuples: \n");
+  printf("\nRunning CSG Relation***********************\n");
+  printf("Inserting 8 different tuples: \n");
+  printf("A in CS101 for student 12345\n");
+  printf("C in EE200 for student 12345\n");
+  printf("D in EE200 for student 49192\n");
+  printf("C- in PH100 for student 81824\n");
+  printf("D+ in EN150 for student 20310\n");
+  printf("B+ in EE200 for student 22222\n");
+  printf("A- in CS101 for student 33333\n");
+  printf("C+ in PH100 for student 67890\n");
   insertCSGTuple(csgTable, "CS101", 12345, "A");
   insertCSGTuple(csgTable, "EE200", 12345, "C");
   insertCSGTuple(csgTable, "EE200", 49192, "D");
@@ -175,11 +184,13 @@ int main(int argc, char* argv[]) {
   insertCSGTuple(csgTable, "PH100", 67890, "C+");
   printf("Looking up the grade for student in CSC101 with an ID of 12345:\n");
   lookupCSG(csgTable, "CSC101", 12345, "*");
-  printf("Deleting the student 20310 in EN150 with a D+: \n");
+  printf("Deleting the student 20310 in EN150 with a D+ \n");
   deleteCSGTuple(csgTable, "EN150", 20310, "D+");
-  printf("Deleting the student 12345: \n");
+  printf("Deleting the student 12345 \n");
   deleteCSGTuple(csgTable, "*", 12345, "*");
   printf("Deleting all of the students in PH100\n");
   deleteCSGTuple(csgTable, "PH100", 0, "*");
+  printf("\nPrinting CSG Table:\n");
   printCSGTable(csgTable);
+  printf("Ending CSG Relation***********************\n\n");
 }
