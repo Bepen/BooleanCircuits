@@ -1,4 +1,8 @@
 #include "main.h"
+#include "RelationalAlgebra.c"
+#include "RelationalAlgebra.h"
+#include "StudentCourse.c"
+//#include "StudentCourse.h"
 #include "CSG.c"
 #include "SNAP.c"
 #include "CDH.c"
@@ -11,6 +15,11 @@ int main(int argc, char* argv[]) {
   runCSG();
   runSNAP();
   runCDH();
+<<<<<<< HEAD
   runCP();
+=======
+  //problem2a();
+  problem3();
+>>>>>>> e655297cf3bc5261dcfd535963b15c87cb7bacda
   return 0;
 }
