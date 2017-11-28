@@ -134,15 +134,29 @@ void lookupCSG(struct CSG** csgTable, char* course, int studentID, char* grade) 
   struct CSG** csgTableTemp = createCSGTable();
   int broke = 0;
   int key = getCSGHashKey(csgTemp);
-  while(csgTable[key]->next != NULL) {
-    if (csgTable[key]->studentID == studentID && strcmp(csgTable[key]->course, course)) {
-      //printf("Reaches Here");
-      insertCSGTuple(csgTableTemp, csgTable[key]->course, csgTable[key]->studentID, csgTable[key]->grade);
-      break;
-      broke = 1;
-    } else {
-      //printf("Reaches Here");
-      csgTable[key] = csgTable[key]->next;
+  if (strcmp(course, "*") == 0 && strcmp(grade, "*") == 0) {
+    while(csgTable[key] != NULL) {
+      if (csgTable[key]->studentID == studentID) {
+        //printf("Reaches Here");
+        insertCSGTuple(csgTableTemp, csgTable[key]->course, csgTable[key]->studentID, csgTable[key]->grade);
+        broke = 1;
+        csgTable[key] = csgTable[key]->next;
+      } else {
+        //printf("Reaches Here");
+        csgTable[key] = csgTable[key]->next;
+      }
+    }
+  } else {
+    while(csgTable[key]->next != NULL) {
+      if (csgTable[key]->studentID == studentID && strcmp(csgTable[key]->course, course)) {
+        //printf("Reaches Here");
+        insertCSGTuple(csgTableTemp, csgTable[key]->course, csgTable[key]->studentID, csgTable[key]->grade);
+        break;
+        broke = 1;
+      } else {
+        //printf("Reaches Here");
+        csgTable[key] = csgTable[key]->next;
+      }
     }
   }
   printCSGTable(csgTableTemp);
