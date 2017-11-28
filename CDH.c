@@ -75,7 +75,7 @@ void printTable(struct CDH** cdhTable) {
     if (cdhTable[i] != NULL) {
       if (cdhTable[i]->next == NULL) {
         if (strcmp(cdhTable[i]->course, "") != 0) {
-          printf("Course: %s. Day: %s. Hour: %s. Key %d\n", cdhTable[i]->course, cdhTable[i]->day, cdhTable[i]->hour, getHashKey(cdhTable[i]));
+          printf("Course: %s  Day: %s  Hour: %s  \n", cdhTable[i]->course, cdhTable[i]->day, cdhTable[i]->hour);
           continue;
         }
       }
@@ -84,7 +84,7 @@ void printTable(struct CDH** cdhTable) {
         if (strcmp(cdhTable[i]->course, "") == 0) {
           cdhTable[i] = cdhTable[i]->next;
         } else {
-          printf("Course: %s. Day: %s. Hour: %s. Key %d\n", cdhTable[i]->course, cdhTable[i]->day, cdhTable[i]->hour, getHashKey(cdhTable[i]));
+          printf("Course: %s  Day: %s  Hour: %s  \n", cdhTable[i]->course, cdhTable[i]->day, cdhTable[i]->hour);
           cdhTable[i] = cdhTable[i]->next;
         }
         if (cdhTable[i]->next == NULL) {
@@ -137,21 +137,33 @@ void lookup(struct CDH** cdhTable, char* course, char* day, char* hour) {
   printTable(cdhTableTemp);
 }
 
-int main(int argc, char* argv[]) {
+void runCDH() {
+  printf("\nRunning CDH Relation***********************\n");
   struct CDH** cdhTable = createTable();
-  insertTuple(cdhTable, "CS101", "M", "9AM");
+  printf("Inserting 8 tuples: \n");
+  printf("CS101 on Mondays at 9 AM \n");
+  printf("CS101 on Wednesdays at 9 AM \n");
+  printf("CS101 on Fridays at 9 AM \n");
+  printf("EE200 on Tuesdays at 10 AM \n");
+  printf("EE200 on Wednesdays at 1 PM \n");
+  printf("EE200 on Thursdays at 10 AM \n");
+  printf("PS101 on Mondays at 9 AM \n");
+  printf("ST213 on Mondays at 9 AM \n");
   insertTuple(cdhTable, "CS101", "M", "9AM");
   insertTuple(cdhTable, "CS101", "W", "9AM");
   insertTuple(cdhTable, "CS101", "F", "9AM");
   insertTuple(cdhTable, "EE200", "Tu", "10AM");
-  insertTuple(cdhTable, "EE200", "Tu", "11AM");
   insertTuple(cdhTable, "EE200", "W", "1PM");
   insertTuple(cdhTable, "EE200", "Th", "10AM");
-  insertTuple(cdhTable, "PSY101", "M", "9AM");
-  insertTuple(cdhTable, "STT213", "M", "9AM");
-  deleteTuple(cdhTable, "PSY101", "M", "9AM");
-  deleteTuple(cdhTable, "STT213", "M", "9AM");
-  printTable(cdhTable);
-  printf("lookup********\n");
+  insertTuple(cdhTable, "PS101", "M", "9AM");
+  insertTuple(cdhTable, "ST213", "M", "9AM");
+  printf("Deleting PS101 \n");
+  printf("Deleting ST213 \n");
+  deleteTuple(cdhTable, "PS101", "M", "9AM");
+  deleteTuple(cdhTable, "ST213", "M", "9AM");
+  printf("Looking up all EE200 classes on Tuesdays:\n");
   lookup(cdhTable, "EE200", "Tu", "*");
+  printf("\nPrinting CDH Table:\n");
+  printTable(cdhTable);
+  printf("Ending CDH Relation***********************\n");
 }
