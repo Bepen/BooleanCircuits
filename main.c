@@ -1,7 +1,7 @@
 #include "main.h"
 #include "RelationalAlgebra.c"
 #include "RelationalAlgebra.h"
-#include "StudentCourse.c"
+//#include "StudentCourse.c"
 //#include "StudentCourse.h"
 #include "CSG.c"
 #include "SNAP.c"
