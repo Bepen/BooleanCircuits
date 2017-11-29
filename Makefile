@@ -1,7 +1,7 @@
 all: main.c
-	gcc -o hello main.c -Wall -Werror
-	./hello
+	gcc -o database main.c -Wall -Werror
+	./database
 	$ sudo make clean
 
 clean:
-	$(RM) hello
+	$(RM) database
