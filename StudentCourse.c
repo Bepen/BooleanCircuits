@@ -3,6 +3,10 @@ CSC 173 Project 4
 Created By Bepen Neupane and Sailesh Kaveti
 NetID: bneupane skaveti
 */
+
+//Since most of the methods are the same as their relational counterparts,
+//I will only comment on the print since it's unique to this class
+
 #include "StudentCourse.h"
 #include <string.h>
 #include <stdio.h>
@@ -275,7 +279,8 @@ struct CSGSC** lookupCSGSC(struct CSGSC** csgTable, char* course, int studentID,
 }
 
 
-
+//prints the grade of the student, therefore answering the query
+//the relations are essentially joined togther to get the grade of the student in the certain course
 void printGrades(struct CSGSC** csgTableTemp, struct SNAPSC** snapTable, char* name, char* course) {
   struct SNAPSC** snapTableName = createSNAPSCTable();
   struct SNAPSC** snapTableTemp = createSNAPSCTable();
