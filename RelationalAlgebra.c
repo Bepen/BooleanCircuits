@@ -65,7 +65,7 @@ void insertRATuple(struct RA** raTable, char* course, int studentID, char* grade
 }
 
 //Selects tuples based on a certain condition
-struct RA** select(struct RA** raTable, char* query, char* value, int studentID) {
+struct RA** selectRA(struct RA** raTable, char* query, char* value, int studentID) {
   struct RA** raTemp = createRATable();
   for (int i = 0; i < 1009; i++) {
     while (raTable[i] != NULL) {
@@ -160,7 +160,7 @@ void problem3() {
   insertRATuple(raTable, "EE200", 22222, "B+", "", "", "", "", "", "", "");
   insertRATuple(raTable, "CS101", 33333, "A-", "", "", "", "", "", "", "");
   insertRATuple(raTable, "PH100", 67890, "C+", "", "", "", "", "", "", "");
-  printRATable(select(raTable, "course", "CS101", 0));
+  printRATable(selectRA(raTable, "course", "CS101", 0));
 
   //Inserting tuples and doing example 8.13 from the book
   printf("\nDoing example 8.13 from book: \n");
@@ -171,5 +171,5 @@ void problem3() {
   insertRATuple(raTable1, "EE200", 22222, "B+", "", "", "", "", "", "", "");
   insertRATuple(raTable1, "CS101", 33333, "A-", "", "", "", "", "", "", "");
   insertRATuple(raTable1, "PH100", 67890, "C+", "", "", "", "", "", "", "");
-  printRATable(project(select(raTable1, "course", "CS101", 0), "studentID"));
+  printRATable(project(selectRA(raTable1, "course", "CS101", 0), "studentID"));
 }

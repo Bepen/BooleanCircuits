@@ -256,14 +256,12 @@ void printCSGNTDTable(struct CSGNTD** csgTable) {
 struct CSGNTD** lookupCSGNTD(struct CSGNTD** csgTable, char* course, int studentID, char* grade) {
   struct CSGNTD* csgTemp = newCSGNTD(course, studentID, grade);
   struct CSGNTD** csgTableTemp = createCSGNTDTable();
-  int broke = 0;
   int key = getCSGNTDHashKey(csgTemp);
   if (strcmp(course, "*") == 0 && strcmp(grade, "*") == 0) {
     while(csgTable[key] != NULL) {
       if (csgTable[key]->studentID == studentID) {
         //printf("Reaches Here");
         insertCSGNTDTuple(csgTableTemp, csgTable[key]->course, csgTable[key]->studentID, csgTable[key]->grade);
-        broke = 1;
         csgTable[key] = csgTable[key]->next;
       } else {
         //printf("Reaches Here");
@@ -276,7 +274,6 @@ struct CSGNTD** lookupCSGNTD(struct CSGNTD** csgTable, char* course, int student
         //printf("Reaches Here");
         insertCSGNTDTuple(csgTableTemp, csgTable[key]->course, csgTable[key]->studentID, csgTable[key]->grade);
         break;
-        broke = 1;
       } else {
         //printf("Reaches Here");
         csgTable[key] = csgTable[key]->next;
@@ -399,7 +396,6 @@ void insertCDHNTDTuple(struct CDHNTD** cdhTable, char* course, char* day, char* 
 struct CDHNTD** lookupCDHNTD(struct CDHNTD** cdhTable, char* course, char* day, char* hour) {
   struct CDHNTD* cdhTemp = newCDHNTD(course, day, hour);
   struct CDHNTD** cdhTableTemp = createCDHNTDTable();
-  int broke = 0;
   int key = getCDHNTDHashKey(cdhTemp);
   while(cdhTable[key] != NULL) {
     //printf("Key: %d\n", key);
@@ -408,7 +404,6 @@ struct CDHNTD** lookupCDHNTD(struct CDHNTD** cdhTable, char* course, char* day, 
     if (strcmp(cdhTable[key]->course, course) == 0 && strcmp(cdhTable[key]->day, day) == 0) {
       insertCDHNTDTuple(cdhTableTemp, cdhTable[key]->course, cdhTable[key]->day, cdhTable[key]->hour);
       break;
-      broke = 1;
     } else {
       //printf("Reaches Here");
       cdhTable[key] = cdhTable[key]->next;

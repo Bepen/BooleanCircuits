@@ -122,7 +122,6 @@ void insertTuple(struct CDH** cdhTable, char* course, char* day, char* hour) {
 void lookup(struct CDH** cdhTable, char* course, char* day, char* hour) {
   struct CDH* cdhTemp = newCDH(course, day, hour);
   struct CDH** cdhTableTemp = createTable();
-  int broke = 0;
   int key = getHashKey(cdhTemp);
   while(cdhTable[key] != NULL) {
     //printf("Key: %d\n", key);
@@ -131,7 +130,6 @@ void lookup(struct CDH** cdhTable, char* course, char* day, char* hour) {
     if (strcmp(cdhTable[key]->course, course) == 0 && strcmp(cdhTable[key]->day, day) == 0) {
       insertTuple(cdhTableTemp, cdhTable[key]->course, cdhTable[key]->day, cdhTable[key]->hour);
       break;
-      broke = 1;
     } else {
       //printf("Reaches Here");
       cdhTable[key] = cdhTable[key]->next;

@@ -261,14 +261,12 @@ void printCSGSCTable(struct CSGSC** csgTable) {
 struct CSGSC** lookupCSGSC(struct CSGSC** csgTable, char* course, int studentID, char* grade) {
   struct CSGSC* csgTemp = newCSGSC(course, studentID, grade);
   struct CSGSC** csgTableTemp = createCSGSCTable();
-  int broke = 0;
   int key = getCSGSCHashKey(csgTemp);
   while(csgTable[key]->next != NULL) {
     if (csgTable[key]->studentID == studentID && strcmp(csgTable[key]->course, course)) {
       //printf("Reaches Here");
       insertCSGSCTuple(csgTableTemp, csgTable[key]->course, csgTable[key]->studentID, csgTable[key]->grade);
       break;
-      broke = 1;
     } else {
       //printf("Reaches Here");
       csgTable[key] = csgTable[key]->next;
