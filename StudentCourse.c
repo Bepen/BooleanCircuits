@@ -311,6 +311,7 @@ void printGrades(struct CSGSC** csgTableTemp, struct SNAPSC** snapTable, char* n
 }
 
 void problem2a() {
+  printf("Problem 2a:\n");
   struct SNAPSC** snapTable = createSNAPSCTable();
   insertSNAPSCTuple(snapTable, 12345, "C. Brown", "12 Apple St.", "555-1234");
   insertSNAPSCTuple(snapTable, 49192, "C. Brown", "31 Banana St.", "123-5432");
@@ -324,7 +325,6 @@ void problem2a() {
   insertCSGSCTuple(csgTable, "EE200", 22222, "B+");
   insertCSGSCTuple(csgTable, "CS101", 33333, "A-");
   insertCSGSCTuple(csgTable, "PH100", 67890, "C+");
-  printf("******************************************************\n");
   printf("Looking for C. Brown's grade in EE200: \n");
   printGrades(csgTable, snapTable, "C. Brown", "EE200");
   printf("\n");

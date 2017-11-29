@@ -4,64 +4,64 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct SNAP {
+struct SNAPNTD {
   char* name;
   int studentID;
   char* address;
   char* phone;
-  struct SNAP* next;
+  struct SNAPNTD* next;
 };
 
-struct CSG {
+struct CSGNTD {
   char* course;
   int studentID;
   char* grade;
-  struct CSG* next;
+  struct CSGNTD* next;
 };
 
-struct CDH {
+struct CDHNTD {
   char* course;
   char* day;
   char* hour;
-  struct CDH* next;
+  struct CDHNTD* next;
 };
 
-struct CR {
+struct CRNTD {
   char* course;
   char* room;
-  struct CR* next;
+  struct CRNTD* next;
 };
 
-struct SNAP* newSNAP(int studentID, char* name, char* address, char* phone);
-struct SNAP** createSNAPTable();
-int getSNAPHashKey(struct SNAP* snap);
-void insertSNAPTuple(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone);
-void deleteSNAPTuple(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone);
-void printSNAPTable(struct SNAP** snapTable);
-struct SNAP** lookupSNAP(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone);
+struct SNAPNTD* newSNAPNTD(int studentID, char* name, char* address, char* phone);
+struct SNAPNTD** createSNAPNTDTable();
+int getSNAPNTDHashKey(struct SNAPNTD* snap);
+void insertSNAPNTDTuple(struct SNAPNTD** snapTable, int studentID, char* name, char* address, char* phone);
+void deleteSNAPNTDTuple(struct SNAPNTD** snapTable, int studentID, char* name, char* address, char* phone);
+void printSNAPNTDTable(struct SNAPNTD** snapTable);
+struct SNAPNTD** lookupSNAPNTD(struct SNAPNTD** snapTable, int studentID, char* name, char* address, char* phone);
 
-struct CSG* newCSG(char* course, int studentID, char* grade);
-struct CSG** createCSGTable();
-int getCSGHashKey(struct CSG* csg);
-void insertCSGTuple(struct CSG** csgTable, char* course, int studentID, char* grade);
-void deleteCSGTuple(struct CSG** csgTable, char* course, int studentID, char* grade);
-void printCSGTable(struct CSG** csgTable);
-struct CSG** lookupCSG(struct CSG** csgTable, char* course, int studentID, char* grade);
+struct CSGNTD* newCSGNTD(char* course, int studentID, char* grade);
+struct CSGNTD** createCSGNTDTable();
+int getCSGNTDHashKey(struct CSGNTD* csg);
+void insertCSGNTDTuple(struct CSGNTD** csgTable, char* course, int studentID, char* grade);
+void deleteCSGNTDTuple(struct CSGNTD** csgTable, char* course, int studentID, char* grade);
+void printCSGNTDTable(struct CSGNTD** csgTable);
+struct CSGNTD** lookupCSGNTD(struct CSGNTD** csgTable, char* course, int studentID, char* grade);
 
-struct CDH* newCDH(char* course, char* day, char* hour);
-struct CDH** createCDHTable();
-int getCDHHashKey(struct CDH* cdh);
-void deleteCDHTuple(struct CDH** cdhTable, char* course, char* day, char* hour);
-void printCDHTable(struct CDH** cdhTable);
-void insertCDHTuple(struct CDH** cdhTable, char* course, char* day, char* hour);
-struct CDH** lookupCDH(struct CDH** cdhTable, char* course, char* day, char* hour);
+struct CDHNTD* newCDHNTD(char* course, char* day, char* hour);
+struct CDHNTD** createCDHNTDTable();
+int getCDHNTDHashKey(struct CDHNTD* cdh);
+void deleteCDHNTDTuple(struct CDHNTD** cdhTable, char* course, char* day, char* hour);
+void printCDHNTDTable(struct CDHNTD** cdhTable);
+void insertCDHNTDTuple(struct CDHNTD** cdhTable, char* course, char* day, char* hour);
+struct CDHNTD** lookupCDHNTD(struct CDHNTD** cdhTable, char* course, char* day, char* hour);
 
-struct CR* newCR(char* course, char* room);
-struct CR** createCRTable();
-int getCRKey(struct CR* cr);
-void insertCRTuple(struct CR** crTable, char* course, char* room);
-void deleteCRTuple(struct CR** crTable, char* course, char* room);
-void printCRTable(struct CR** crTable);
-struct CR** lookupCR(struct CR** crTable, char* course, char* room);
+struct CRNTD* newCRNTD(char* course, char* room);
+struct CRNTD** createCRNTDTable();
+int getCRNTDKey(struct CRNTD* cr);
+void insertCRNTDTuple(struct CRNTD** crTable, char* course, char* room);
+void deleteCRNTDTuple(struct CRNTD** crTable, char* course, char* room);
+void printCRNTDTable(struct CRNTD** crTable);
+struct CRNTD** lookupCRNTD(struct CRNTD** crTable, char* course, char* room);
 
 #endif

@@ -8,6 +8,7 @@
 #include "CDH.c"
 #include "CP.c"
 #include "CR.c"
+#include "NameTimeDay.c"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,6 +20,7 @@ int main(int argc, char* argv[]) {
   runCP();
   runCR();
   problem2a();
+  problem2b();
   problem3();
   return 0;
 }
