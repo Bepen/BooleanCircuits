@@ -8,6 +8,7 @@ NetID: bneupane skaveti
 #include <stdlib.h>
 #include "CSG.h"
 
+//creates the CSG tuple
 struct CSG* newCSG(char* course, int studentID, char* grade){
   struct CSG *csg = malloc(sizeof(struct CSG));
   csg->course = (char*)malloc(sizeof(char) * (6));
@@ -18,16 +19,16 @@ struct CSG* newCSG(char* course, int studentID, char* grade){
   csg->next = NULL;
   return csg;
 }
-
+//creates a table where CSG tuples are stored
 struct CSG** createCSGTable() {
   struct CSG** csgTab = malloc(1009*sizeof(struct CSG));
   return csgTab;
 }
-
+//gets key for the tuple so the tuple can be placed in the correct bucket in the hash table
 int getCSGHashKey(struct CSG* csg) {
   return csg->studentID % 1009;
 }
-
+//inserts tuple into the table
 void insertCSGTuple(struct CSG** csgTable, char* course, int studentID, char* grade) {
   struct CSG* csgTemp = newCSG(course, studentID, grade);
   int key = getCSGHashKey(csgTemp);
@@ -42,7 +43,7 @@ void insertCSGTuple(struct CSG** csgTable, char* course, int studentID, char* gr
   }
   //csgTable[key] = csgTemp;
 }
-
+//deletes tuple from the table
 void deleteCSGTuple(struct CSG** csgTable, char* course, int studentID, char* grade) {
   struct CSG* csgTemp = newCSG(course, studentID, grade);
   struct CSG* csgFiller = newCSG("", 0, "");
@@ -111,15 +112,15 @@ void deleteCSGTuple(struct CSG** csgTable, char* course, int studentID, char* gr
     }
   }
 }
-
+//prints the CSG table
 void printCSGTable(struct CSG** csgTable) {
   for (int i = 0; i < 1009; i++) {
     if (csgTable[i] != NULL) {
-      if (strcmp(csgTable[i]->course, "") != 0) {
+      if (strcmp(csgTable[i]->course, "") != 0) { //if the tuple isn't filled with empty strings, it will print
         printf("Course: %s  Student ID: %d  Grade: %s \n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade);
       }
       while(csgTable[i]->next != NULL){
-        if (strcmp(csgTable[i]->course, "") == 0) {
+        if (strcmp(csgTable[i]->course, "") == 0) {//if the tuple isn't filled with empty strings, it will print
           csgTable[i] = csgTable[i]->next;
         } else {
           csgTable[i] = csgTable[i]->next;
@@ -134,6 +135,7 @@ void printCSGTable(struct CSG** csgTable) {
   }
 }
 
+//looks for tuples that match the condition given
 void lookupCSG(struct CSG** csgTable, char* course, int studentID, char* grade) {
   struct CSG* csgTemp = newCSG(course, studentID, grade);
   struct CSG** csgTableTemp = createCSGTable();
@@ -166,7 +168,7 @@ void lookupCSG(struct CSG** csgTable, char* course, int studentID, char* grade) 
   }
   printCSGTable(csgTableTemp);
 }
-
+//runs the CSG relation, called in main.c
 void runCSG() {
   struct CSG** csgTable = createCSGTable();
   printf("\nRunning CSG Relation***********************\n");
