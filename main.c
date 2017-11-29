@@ -7,6 +7,7 @@
 #include "SNAP.c"
 #include "CDH.c"
 #include "CP.c"
+#include "CR.c"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,6 +17,7 @@ int main(int argc, char* argv[]) {
   runSNAP();
   runCDH();
   runCP();
+  runCR();
   //problem2a();
   problem3();
   return 0;

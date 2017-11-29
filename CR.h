@@ -10,11 +10,11 @@ struct CR {
   struct CR* next;
 };
 
-struct CR** createTable();
+struct CR** createCRTable();
 int getCRKey(struct CR* cr);
-void insertTuple(struct CR** crTable, char* course, char* room);
-void deleteTuple(struct CR** crTable, char* course, char* room);
-void printTable(struct CR** crTable);
-void lookup(struct CR** crTable, char* course, char* room);
+void insertCRTuple(struct CR** crTable, char* course, char* room);
+void deleteCRTuple(struct CR** crTable, char* course, char* room);
+void printCRTable(struct CR** crTable);
+void lookupCR(struct CR** crTable, char* course, char* room);
 
 #endif

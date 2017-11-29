@@ -13,7 +13,7 @@ struct CR* newCR(char* course, char* room){
   return cr;
 }
 
-struct CR** createTable() {
+struct CR** createCRTable() {
   struct CR** crTab = malloc(1009*sizeof(struct CR));
   return crTab;
 }
@@ -32,7 +32,7 @@ int getCRKey(struct CR* cr) {
     return key%1009;
 }
 
-void insertTuple(struct CR** crTable, char* course, char* room) {
+void insertCRTuple(struct CR** crTable, char* course, char* room) {
   struct CR* crTemp = newCR(course, room);
   int key = getCRKey(crTemp);
   if (crTable[key] == NULL) {
@@ -50,7 +50,7 @@ void insertTuple(struct CR** crTable, char* course, char* room) {
   }
 }
 
-void deleteTuple(struct CR** crTable, char* course, char* room) {
+void deleteCRTuple(struct CR** crTable, char* course, char* room) {
   struct CR* crFiller = newCR("", "");
   struct CR* crTemp = newCR(course, room);
   if (strcmp(room, "*") == 0) {
@@ -91,18 +91,18 @@ void deleteTuple(struct CR** crTable, char* course, char* room) {
   }
 }
 
-void printTable(struct CR** crTable) {
+void printCRTable(struct CR** crTable) {
   for (int i = 0; i < 1009; i++) {
     if (crTable[i] != NULL) {
       if (strcmp(crTable[i]->course, "") != 0) {
-        printf("Course: %s. room: %s. Key %d\n", crTable[i]->course, crTable[i]->room, getCRKey(crTable[i]));
+        printf("Course: %s  Room: %s  \n", crTable[i]->course, crTable[i]->room);
       }
       while(crTable[i]->next != NULL){
         if (strcmp(crTable[i]->course, "") == 0) {
           crTable[i] = crTable[i]->next;
         } else {
           crTable[i] = crTable[i]->next;
-          printf("Course: %s. room: %s. Key %d\n", crTable[i]->course, crTable[i]->room, getCRKey(crTable[i]));
+          printf("Course: %s  Room: %s  \n", crTable[i]->course, crTable[i]->room);
         }
         if (crTable[i]->next == NULL) {
           break;
@@ -112,9 +112,9 @@ void printTable(struct CR** crTable) {
   }
 }
 
-void lookup(struct CR** crTable, char* course, char* room) {
+void lookupCR(struct CR** crTable, char* course, char* room) {
   struct CR* crTemp = newCR(course, room);
-  struct CR** crTempTable = createTable();
+  struct CR** crTempTable = createCRTable();
   int key = getCRKey(crTemp);
   if (crTable[key] == NULL) {
     //printf("NULL\n");
@@ -122,30 +122,36 @@ void lookup(struct CR** crTable, char* course, char* room) {
   }
   while (crTable[key]->next != NULL) {
     if (strcmp(crTable[key]->course, course) == 0 && strcmp(crTable[key]->room, room) == 0) {
-      insertTuple(crTempTable, course, room);
+      insertCRTuple(crTempTable, course, room);
       break;
     } else {
       crTable[key] = crTable[key]->next;
     }
   }
   if (strcmp(crTable[key]->course, course) == 0 && strcmp(crTable[key]->room, room) == 0) {
-    insertTuple(crTempTable, course, room);
+    insertCRTuple(crTempTable, course, room);
   }
-  printTable(crTempTable);
+  printCRTable(crTempTable);
 }
 
 
-int main(int argc, char* argv[]) {
-  struct CR** crTable = createTable();
-  insertTuple(crTable, "CS101", "Turing Aud");
-  insertTuple(crTable, "EE200", "25 Ohm Hall");
-  insertTuple(crTable, "PH100", "Newton Lab");
-  printTable(crTable);
-  printf("Delete Tuple with EE200 in 25 Ohm Hall\n");
-  deleteTuple(crTable, "EE200", "25 Ohm Hall");
-  printTable(crTable);
-  printf("Lookup Tuple with CSC101 in Turing Aud.\n");
-  lookup(crTable, "CS101", "Turing Aud");
+void runCR() {
+  struct CR** crTable = createCRTable();
+  printf("\nRunning CR Relation***********************\n");
+  printf("Inserting 3 different tuples: \n");
+  printf("CS101 takes place in Turing Aud.\n");
+  printf("EE200 takes place in 25 Ohm Hall\n");
+  printf("PH100 takes place in Newton Lab\n");
+  insertCRTuple(crTable, "CS101", "Turing Aud.");
+  insertCRTuple(crTable, "EE200", "25 Ohm Hall");
+  insertCRTuple(crTable, "PH100", "Newton Lab");
+  printf("Deleting Tuple with EE200 in 25 Ohm Hall\n");
+  deleteCRTuple(crTable, "EE200", "25 Ohm Hall");
+  printf("Lookup CSC101 in Turing Aud.:\n");
+  lookupCR(crTable, "CS101", "Turing Aud.");
+  printf("\nPrinting CR Table:\n");
+  printCRTable(crTable);
   //struct CR* cr = newCR("CS101", "Turing Aud");
   //printf("%d\n", getCRKey(cr));
+  printf("Ending CR Relation***********************\n\n");
 }

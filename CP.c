@@ -162,11 +162,12 @@ void runCP() {
   insertCPTuple(cpTable, "CS206", "CS121");
   insertCPTuple(cpTable, "CS206", "CS205");
   insertCPTuple(cpTable, "CS120", "CS101");
+  printf("Delete all CS120 courses:\n");
   deleteCPTuple(cpTable, "CS120", "*");
+  printf("Delete EE200 with prerequisite CS100:\n");
   deleteCPTuple(cpTable, "EE200", "CS100");
   printf("Looking for course CS101 with prerequisite of CS100:\n");
   lookupCP(cpTable, "CS101", "CS100");
-  lookupCP(cpTable, "CS100", "EN150");
   printf("\nPrinting CP Table:\n");
   printCPTable(cpTable);
   printf("Ending CP Relation***********************\n");
