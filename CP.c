@@ -95,14 +95,14 @@ void printCPTable(struct CP** cpTable) {
   for (int i = 0; i < 1009; i++) {
     if (cpTable[i] != NULL) {
       if (strcmp(cpTable[i]->course, "") != 0) {
-        printf("Course: %s. PreReq: %s. Key %d\n", cpTable[i]->course, cpTable[i]->preReq, getCPKey(cpTable[i]));
+        printf("Course: %s  Prerequisite: %s  \n", cpTable[i]->course, cpTable[i]->preReq);
       }
       while(cpTable[i]->next != NULL){
         if (strcmp(cpTable[i]->course, "") == 0) {
           cpTable[i] = cpTable[i]->next;
         } else {
           cpTable[i] = cpTable[i]->next;
-          printf("Course: %s. PreReq: %s. Key %d\n", cpTable[i]->course, cpTable[i]->preReq, getCPKey(cpTable[i]));
+          printf("Course: %s  Prerequisite: %s  \n", cpTable[i]->course, cpTable[i]->preReq);
         }
         if (cpTable[i]->next == NULL) {
           break;
@@ -142,6 +142,16 @@ void runCP() {
   struct CP** cpTable = createCPTable();
   printf("\nRunning CP Relation***********************\n");
   printf("Inserting 10 different tuples: \n");
+  printf("CS101's prerequisite is CS100 \n");
+  printf("EE200's prerequisite is EE005 \n");
+  printf("EE200's prerequisite is CS100 \n");
+  printf("CS120's prerequisite is CS101 \n");
+  printf("CS121's prerequisite is CS120 \n");
+  printf("CS205's prerequisite is CS101 \n");
+  printf("CS205's prerequisite is CS120 \n");
+  printf("CS206's prerequisite is CS121 \n");
+  printf("CS206's prerequisite is CS205 \n");
+  printf("CS120's prerequisite is CS101 \n");
   insertCPTuple(cpTable, "CS101", "CS100");
   insertCPTuple(cpTable, "EE200", "EE005");
   insertCPTuple(cpTable, "EE200", "CS100");
@@ -157,7 +167,7 @@ void runCP() {
   printf("Looking for course CS101 with prerequisite of CS100:\n");
   lookupCP(cpTable, "CS101", "CS100");
   lookupCP(cpTable, "CS100", "EN150");
-  printf("\n");
+  printf("\nPrinting CP Table:\n");
   printCPTable(cpTable);
   printf("Ending CP Relation***********************\n");
 
