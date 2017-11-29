@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
   runCDH();
   runCP();
   runCR();
-  //problem2a();
+  problem2a();
   problem3();
   return 0;
 }
