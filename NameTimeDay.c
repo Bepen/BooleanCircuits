@@ -549,6 +549,8 @@ struct CRNTD** lookupCRNTD(struct CRNTD** crTable, char* course, char* room) {
   return crTable;
 }
 
+//This print location method takes in different tables and from them, it is able to extract where a certain person is at a certain time and day
+//This is a void method
 void printLocation(struct SNAPNTD** snapTable, struct CSGNTD** csgTable, struct CDHNTD** cdhTable, struct CRNTD** crTable, char* name, char* day, char* time) {
   struct SNAPNTD** snapTableName = lookupSNAPNTD(snapTable, 0, name, "*", "*");
   int studentID = 0;

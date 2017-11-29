@@ -8,6 +8,7 @@ NetID: bneupane skaveti
 #include <stdio.h>
 #include <stdlib.h>
 
+//Creates a new Tuple
 struct RA* newRA(char* course, int studentID, char* grade,char* name, char* address, char* phone,char* preReq, char* day, char* hour,char* room){
   struct RA *ra = malloc(sizeof(struct RA));
   ra->course = (char*)malloc(sizeof(char) * (6));
@@ -33,15 +34,18 @@ struct RA* newRA(char* course, int studentID, char* grade,char* name, char* addr
   return ra;
 }
 
+//Gets the key for an RA tuple
 int getRAKey(struct RA* ra) {
   return ra->studentID % 1009;
 }
 
+//Creates an RA table
 struct RA** createRATable() {
   struct RA** raTab = malloc(1009*sizeof(struct RA));
   return raTab;
 }
 
+//Inserts a tuple if it already isn't in it
 void insertRATuple(struct RA** raTable, char* course, int studentID, char* grade, char* name, char* address, char* phone, char* preReq, char* day, char* hour, char* room) {
   struct RA* raTemp = newRA(course, studentID, grade, name, address, phone, preReq, day, hour, room);
   int key = getRAKey(raTemp);
@@ -60,6 +64,7 @@ void insertRATuple(struct RA** raTable, char* course, int studentID, char* grade
   }
 }
 
+//Selects tuples based on a certain condition
 struct RA** select(struct RA** raTable, char* query, char* value, int studentID) {
   struct RA** raTemp = createRATable();
   for (int i = 0; i < 1009; i++) {
@@ -94,6 +99,7 @@ struct RA** select(struct RA** raTable, char* query, char* value, int studentID)
   return raTemp;
 }
 
+//Projection
 struct RA** project(struct RA** raTable, char* query) {
   struct RA** raTemp = createRATable();
   for (int i = 0; i < 1009; i++) {
@@ -129,7 +135,7 @@ struct RA** project(struct RA** raTable, char* query) {
 }
 
 
-
+//Prints the Table
 void printRATable(struct RA** raTable) {
   for (int i = 0; i < 1009; i++) {
     while (raTable[i] != NULL) {
@@ -143,7 +149,9 @@ void printRATable(struct RA** raTable) {
 }
 
 
+//Method to be called in the main method
 void problem3() {
+  //Inserting the tuples for example 8.12
   printf("Doing example 8.12 from book: \n");
   struct RA** raTable = createRATable();
   insertRATuple(raTable, "CS101", 12345, "A", "", "", "", "", "", "", "");
@@ -154,6 +162,7 @@ void problem3() {
   insertRATuple(raTable, "PH100", 67890, "C+", "", "", "", "", "", "", "");
   printRATable(select(raTable, "course", "CS101", 0));
 
+  //Inserting tuples and doing example 8.13 from the book
   printf("\nDoing example 8.13 from book: \n");
   struct RA** raTable1 = createRATable();
   insertRATuple(raTable1, "CS101", 12345, "A", "", "", "", "", "", "", "");
