@@ -1,3 +1,8 @@
+/*
+CSC 173 Project 4
+Created By Bepen Neupane and Sailesh Kaveti
+NetID: bneupane skaveti
+*/
 #include "main.h"
 #include "RelationalAlgebra.c"
 #include "RelationalAlgebra.h"

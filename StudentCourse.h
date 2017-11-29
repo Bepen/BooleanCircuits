@@ -1,3 +1,8 @@
+/*
+CSC 173 Project 4
+Created By Bepen Neupane and Sailesh Kaveti
+NetID: bneupane skaveti
+*/
 #ifndef _StudentCourse_h_gf
 #define _StudentCourse_h_gf
 #include <string.h>
