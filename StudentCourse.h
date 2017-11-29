@@ -4,35 +4,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct SNAP {
+struct SNAPSC {
   char* name;
   int studentID;
   char* address;
   char* phone;
-  struct SNAP* next;
+  struct SNAPSC* next;
 };
 
-struct CSG {
+struct CSGSC {
   char* course;
   int studentID;
   char* grade;
-  struct CSG* next;
+  struct CSGSC* next;
 };
 
-struct SNAP* newSNAP(int studentID, char* name, char* address, char* phone);
-struct SNAP** createSNAPTable();
-struct CSG* newCSG(char* course, int studentID, char* grade);
-struct CSG** createCSGTable();
-int getSNAPHashKey(struct SNAP* snap);
-void insertSNAPTuple(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone);
-void deleteSNAPTuple(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone);
-void printSNAPTable(struct SNAP** snapTable);
-struct SNAP** lookupSNAP(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone);
-int getCSGHashKey(struct CSG* csg);
-void insertCSGTuple(struct CSG** csgTable, char* course, int studentID, char* grade);
-void deleteCSGTuple(struct CSG** csgTable, char* course, int studentID, char* grade);
-void printCSGTable(struct CSG** csgTable);
-struct CSG** lookupCSG(struct CSG** csgTable, char* course, int studentID, char* grade);
+struct SNAPSC* newSNAPSC(int studentID, char* name, char* address, char* phone);
+struct SNAPSC** createSNAPSCTable();
+struct CSGSC* newCSGSC(char* course, int studentID, char* grade);
+struct CSGSC** createCSGSCTable();
+int getSNAPSCHashKey(struct SNAPSC* snap);
+void insertSNAPSCTuple(struct SNAPSC** snapTable, int studentID, char* name, char* address, char* phone);
+void deleteSNAPSCTuple(struct SNAPSC** snapTable, int studentID, char* name, char* address, char* phone);
+void printSNAPSCTable(struct SNAPSC** snapTable);
+struct SNAPSC** lookupSNAPSC(struct SNAPSC** snapTable, int studentID, char* name, char* address, char* phone);
+int getCSGSCHashKey(struct CSGSC* csg);
+void insertCSGSCTuple(struct CSGSC** csgTable, char* course, int studentID, char* grade);
+void deleteCSGSCTuple(struct CSGSC** csgTable, char* course, int studentID, char* grade);
+void printCSGSCTable(struct CSGSC** csgTable);
+struct CSGSC** lookupCSGSC(struct CSGSC** csgTable, char* course, int studentID, char* grade);
 
 
 #endif

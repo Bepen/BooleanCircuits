@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct SNAP* newSNAP(int studentID, char* name, char* address, char* phone) {
-  struct SNAP *snap = malloc(sizeof(struct SNAP));
+struct SNAPSC* newSNAPSC(int studentID, char* name, char* address, char* phone) {
+  struct SNAPSC *snap = malloc(sizeof(struct SNAPSC));
   snap->name = (char*)malloc(sizeof(char) * (15));
   snap->address = (char*)malloc(sizeof(char) * (20));
   snap->phone = (char*)malloc(sizeof(char) * (20));
@@ -16,18 +16,18 @@ struct SNAP* newSNAP(int studentID, char* name, char* address, char* phone) {
   return snap;
 }
 
-struct SNAP** createSNAPTable() {
-  struct SNAP** snapTab = malloc(1009*sizeof(struct SNAP));
+struct SNAPSC** createSNAPSCTable() {
+  struct SNAPSC** snapTab = malloc(1009*sizeof(struct SNAPSC));
   return snapTab;
 }
 
-int getSNAPHashKey(struct SNAP* snap) {
+int getSNAPSCHashKey(struct SNAPSC* snap) {
   return snap->studentID % 1009;
 }
 
-void insertSNAPTuple(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone) {
-  struct SNAP* snapTemp = newSNAP(studentID, name, address, phone);
-  int key = getSNAPHashKey(snapTemp);
+void insertSNAPSCTuple(struct SNAPSC** snapTable, int studentID, char* name, char* address, char* phone) {
+  struct SNAPSC* snapTemp = newSNAPSC(studentID, name, address, phone);
+  int key = getSNAPSCHashKey(snapTemp);
   if(snapTable[key] == NULL) {
     //printf("Inserted\n");
     snapTable[key] = snapTemp;
@@ -45,11 +45,11 @@ void insertSNAPTuple(struct SNAP** snapTable, int studentID, char* name, char* a
   }
 }
 
-void deleteSNAPTuple(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone) {
-  struct SNAP* snapTemp = newSNAP(studentID, name, address, phone);
-  struct SNAP* snapFiller = newSNAP(0, "", "", "");
+void deleteSNAPSCTuple(struct SNAPSC** snapTable, int studentID, char* name, char* address, char* phone) {
+  struct SNAPSC* snapTemp = newSNAPSC(studentID, name, address, phone);
+  struct SNAPSC* snapFiller = newSNAPSC(0, "", "", "");
   if (studentID != 0 && strcmp(name, "*") != 0 && strcmp(address, "*") != 0 && strcmp(phone, "*") != 0) {
-    int key = getSNAPHashKey(snapTemp);
+    int key = getSNAPSCHashKey(snapTemp);
     if (strcmp(snapTable[key]->name, name) == 0 && strcmp(snapTable[key]->address, address) == 0 && snapTable[key]->studentID == studentID && strcmp(snapTable[key]->phone, phone) == 0) {
       //printf("Reaches Here");
       snapTable[key] = snapFiller;
@@ -72,7 +72,7 @@ void deleteSNAPTuple(struct SNAP** snapTable, int studentID, char* name, char* a
 }
 
 
-void printSNAPTable(struct SNAP** snapTable) {
+void printSNAPSCTable(struct SNAPSC** snapTable) {
   for (int i = 0; i < 1009; i++) {
     if (snapTable[i] != NULL) {
       while(snapTable[i] != NULL){
@@ -83,7 +83,7 @@ void printSNAPTable(struct SNAP** snapTable) {
         }
         else {
           //printf("Else Statement\n");
-          printf("Student ID: %d. Name: %s. Address: %s. Phone: %s. Key %d\n", snapTable[i]->studentID, snapTable[i]->name, snapTable[i]->address, snapTable[i]->phone, getSNAPHashKey(snapTable[i]));
+          printf("Student ID: %d. Name: %s. Address: %s. Phone: %s. Key %d\n", snapTable[i]->studentID, snapTable[i]->name, snapTable[i]->address, snapTable[i]->phone, getSNAPSCHashKey(snapTable[i]));
           snapTable[i] = snapTable[i]->next;
         }
         if (snapTable[i] == NULL) {
@@ -95,9 +95,9 @@ void printSNAPTable(struct SNAP** snapTable) {
   }
 }
 
-struct SNAP** lookupSNAP(struct SNAP** snapTable, int studentID, char* name, char* address, char* phone) {
-  struct SNAP* snapTemp = newSNAP(studentID, name, address, phone);
-  struct SNAP** snapTableTemp = createSNAPTable();
+struct SNAPSC** lookupSNAPSC(struct SNAPSC** snapTable, int studentID, char* name, char* address, char* phone) {
+  //struct SNAPSC* snapTemp = newSNAPSC(studentID, name, address, phone);
+  struct SNAPSC** snapTableTemp = createSNAPSCTable();
   //Only Name is defined
   if (studentID == 0 && strcmp(address, "*") == 0 && strcmp(phone, "*") == 0) {
     //printf("Enters\n");
@@ -106,7 +106,7 @@ struct SNAP** lookupSNAP(struct SNAP** snapTable, int studentID, char* name, cha
         //printf("Enters at %d:\n", i);
         while(snapTable[i] != NULL) {
           if (strcmp(snapTable[i]->name, name) == 0) {
-            insertSNAPTuple(snapTableTemp, snapTable[i]->studentID, snapTable[i]->name, snapTable[i]->address, snapTable[i]->phone);
+            insertSNAPSCTuple(snapTableTemp, snapTable[i]->studentID, snapTable[i]->name, snapTable[i]->address, snapTable[i]->phone);
             break;
           } else {
             snapTable[i] = snapTable[i]->next;
@@ -120,11 +120,11 @@ struct SNAP** lookupSNAP(struct SNAP** snapTable, int studentID, char* name, cha
     }
   }
   return snapTableTemp;
-  //printSNAPTable(snapTable);
+  //printSNAPSCTable(snapTable);
 }
 
-struct CSG* newCSG(char* course, int studentID, char* grade){
-  struct CSG *csg = malloc(sizeof(struct CSG));
+struct CSGSC* newCSGSC(char* course, int studentID, char* grade){
+  struct CSGSC *csg = malloc(sizeof(struct CSGSC));
   csg->course = (char*)malloc(sizeof(char) * (6));
   csg->grade = (char*)malloc(sizeof(char) * (3));
   strcpy(csg->course, course);
@@ -134,18 +134,18 @@ struct CSG* newCSG(char* course, int studentID, char* grade){
   return csg;
 }
 
-struct CSG** createCSGTable() {
-  struct CSG** csgTab = malloc(1009*sizeof(struct CSG));
+struct CSGSC** createCSGSCTable() {
+  struct CSGSC** csgTab = malloc(1009*sizeof(struct CSGSC));
   return csgTab;
 }
 
-int getCSGHashKey(struct CSG* csg) {
+int getCSGSCHashKey(struct CSGSC* csg) {
   return csg->studentID % 1009;
 }
 
-void insertCSGTuple(struct CSG** csgTable, char* course, int studentID, char* grade) {
-  struct CSG* csgTemp = newCSG(course, studentID, grade);
-  int key = getCSGHashKey(csgTemp);
+void insertCSGSCTuple(struct CSGSC** csgTable, char* course, int studentID, char* grade) {
+  struct CSGSC* csgTemp = newCSGSC(course, studentID, grade);
+  int key = getCSGSCHashKey(csgTemp);
   if(csgTable[key] == NULL){
     csgTable[key] = csgTemp;
     //printf("hello");
@@ -158,16 +158,16 @@ void insertCSGTuple(struct CSG** csgTable, char* course, int studentID, char* gr
   //csgTable[key] = csgTemp;
 }
 
-void deleteCSGTuple(struct CSG** csgTable, char* course, int studentID, char* grade) {
-  struct CSG* csgTemp = newCSG(course, studentID, grade);
-  struct CSG* csgFiller = newCSG("", 0, "");
+void deleteCSGSCTuple(struct CSGSC** csgTable, char* course, int studentID, char* grade) {
+  struct CSGSC* csgTemp = newCSGSC(course, studentID, grade);
+  struct CSGSC* csgFiller = newCSGSC("", 0, "");
   char string[50];
   sprintf(string, "%d", studentID);
   char* idString = string;
   //all three defined
   if (strcmp(course, "*") != 0 && strcmp(idString, "*") != 0 && strcmp(grade, "*") != 0) {
     //printf("Gets here");
-    int key = getCSGHashKey(csgTemp);
+    int key = getCSGSCHashKey(csgTemp);
     if (strcmp(csgTable[key]->course, course) == 0 && strcmp(csgTable[key]->grade, grade) == 0 && csgTable[key]->studentID == studentID) {
       //printf("Reaches Here");
       csgTable[key] = csgFiller;
@@ -185,7 +185,7 @@ void deleteCSGTuple(struct CSG** csgTable, char* course, int studentID, char* gr
   }
   //only studentID defined
   else if (strcmp(course, "*") == 0 && strcmp(grade, "*") == 0) {
-    int key = getCSGHashKey(csgTemp);
+    int key = getCSGSCHashKey(csgTemp);
     while(csgTable[key]->next != NULL) {
       if (csgTable[key]->studentID == studentID) {
         //printf("Reaches Here");
@@ -227,18 +227,18 @@ void deleteCSGTuple(struct CSG** csgTable, char* course, int studentID, char* gr
   }
 }
 
-void printCSGTable(struct CSG** csgTable) {
+void printCSGSCTable(struct CSGSC** csgTable) {
   for (int i = 0; i < 1009; i++) {
     if (csgTable[i] != NULL) {
       if (strcmp(csgTable[i]->course, "") != 0) {
-        printf("Course: %s. Student ID: %d. Grade: %s. Key %d\n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade, getCSGHashKey(csgTable[i]));
+        printf("Course: %s. Student ID: %d. Grade: %s. Key %d\n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade, getCSGSCHashKey(csgTable[i]));
       }
       while(csgTable[i]->next != NULL){
         if (strcmp(csgTable[i]->course, "") == 0) {
           csgTable[i] = csgTable[i]->next;
         } else {
           csgTable[i] = csgTable[i]->next;
-          printf("Course: %s. Student ID: %d. Grade: %s, Key: %d\n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade, getCSGHashKey(csgTable[i]));
+          printf("Course: %s. Student ID: %d. Grade: %s, Key: %d\n", csgTable[i]->course, csgTable[i]->studentID, csgTable[i]->grade, getCSGSCHashKey(csgTable[i]));
         }
 
         if (csgTable[i]->next == NULL) {
@@ -249,15 +249,15 @@ void printCSGTable(struct CSG** csgTable) {
   }
 }
 
-struct CSG** lookupCSG(struct CSG** csgTable, char* course, int studentID, char* grade) {
-  struct CSG* csgTemp = newCSG(course, studentID, grade);
-  struct CSG** csgTableTemp = createCSGTable();
+struct CSGSC** lookupCSGSC(struct CSGSC** csgTable, char* course, int studentID, char* grade) {
+  struct CSGSC* csgTemp = newCSGSC(course, studentID, grade);
+  struct CSGSC** csgTableTemp = createCSGSCTable();
   int broke = 0;
-  int key = getCSGHashKey(csgTemp);
+  int key = getCSGSCHashKey(csgTemp);
   while(csgTable[key]->next != NULL) {
     if (csgTable[key]->studentID == studentID && strcmp(csgTable[key]->course, course)) {
       //printf("Reaches Here");
-      insertCSGTuple(csgTableTemp, csgTable[key]->course, csgTable[key]->studentID, csgTable[key]->grade);
+      insertCSGSCTuple(csgTableTemp, csgTable[key]->course, csgTable[key]->studentID, csgTable[key]->grade);
       break;
       broke = 1;
     } else {
@@ -266,18 +266,18 @@ struct CSG** lookupCSG(struct CSG** csgTable, char* course, int studentID, char*
     }
   }
   return csgTableTemp;
-  //printCSGTable(csgTableTemp);
+  //printCSGSCTable(csgTableTemp);
 }
 
 
 
-void printGrades(struct CSG** csgTableTemp, struct SNAP** snapTable, char* name, char* course) {
-  struct SNAP** snapTableName = createSNAPTable();
-  struct SNAP** snapTableTemp = createSNAPTable();
-  struct CSG** csgTableID = createCSGTable();
-  snapTableName = lookupSNAP(snapTable, 0, name, "*", "*");
+void printGrades(struct CSGSC** csgTableTemp, struct SNAPSC** snapTable, char* name, char* course) {
+  struct SNAPSC** snapTableName = createSNAPSCTable();
+  struct SNAPSC** snapTableTemp = createSNAPSCTable();
+  //struct CSGSC** csgTableID = createCSGSCTable();
+  snapTableName = lookupSNAPSC(snapTable, 0, name, "*", "*");
   snapTableTemp = snapTableName;
-  //printSNAPTable(snapTableName);
+  //printSNAPSCTable(snapTableName);
   for (int i = 0; i < 1009; i++) {
     snapTableName = snapTableTemp;
     if (snapTableName[i] != NULL) {
@@ -310,23 +310,22 @@ void printGrades(struct CSG** csgTableTemp, struct SNAP** snapTable, char* name,
   }
 }
 
-
-
-int main(int argc, char* argv[]) {
-  struct SNAP** snapTable = createSNAPTable();
-  insertSNAPTuple(snapTable, 12345, "C. Brown", "12 Apple St.", "555-1234");
-  insertSNAPTuple(snapTable, 49192, "C. Brown", "31 Banana St.", "123-5432");
-  insertSNAPTuple(snapTable, 67890, "L. Van Pelt", "34 Pear Ave.", "555-5678");
-  insertSNAPTuple(snapTable, 22222, "P. Patty", "56 Grape Blvd.", "555-9999");
-  struct CSG** csgTable = createCSGTable();
-  insertCSGTuple(csgTable, "CS101", 12345, "A");
-  insertCSGTuple(csgTable, "EE200", 12345, "C");
-  insertCSGTuple(csgTable, "PH100", 81824, "C-");
-  insertCSGTuple(csgTable, "EN150", 20310, "D+");
-  insertCSGTuple(csgTable, "EE200", 22222, "B+");
-  insertCSGTuple(csgTable, "CS101", 33333, "A-");
-  insertCSGTuple(csgTable, "PH100", 67890, "C+");
+void problem2a() {
+  struct SNAPSC** snapTable = createSNAPSCTable();
+  insertSNAPSCTuple(snapTable, 12345, "C. Brown", "12 Apple St.", "555-1234");
+  insertSNAPSCTuple(snapTable, 49192, "C. Brown", "31 Banana St.", "123-5432");
+  insertSNAPSCTuple(snapTable, 67890, "L. Van Pelt", "34 Pear Ave.", "555-5678");
+  insertSNAPSCTuple(snapTable, 22222, "P. Patty", "56 Grape Blvd.", "555-9999");
+  struct CSGSC** csgTable = createCSGSCTable();
+  insertCSGSCTuple(csgTable, "CS101", 12345, "A");
+  insertCSGSCTuple(csgTable, "EE200", 12345, "C");
+  insertCSGSCTuple(csgTable, "PH100", 81824, "C-");
+  insertCSGSCTuple(csgTable, "EN150", 20310, "D+");
+  insertCSGSCTuple(csgTable, "EE200", 22222, "B+");
+  insertCSGSCTuple(csgTable, "CS101", 33333, "A-");
+  insertCSGSCTuple(csgTable, "PH100", 67890, "C+");
   printf("******************************************************\n");
   printf("Looking for C. Brown's grade in EE200: \n");
   printGrades(csgTable, snapTable, "C. Brown", "EE200");
+  printf("\n");
 }
