@@ -55,8 +55,38 @@ void insertRATuple(struct RA** raTable, char* course, int studentID, char* grade
   }
 }
 
-struct RA** select(struct RA** raTable, char* query, char* value) {
+struct RA** select(struct RA** raTable, char* query, char* value, int studentID) {
   struct RA** raTemp = createRATable();
+  for (int i = 0; i < 1009; i++) {
+    while (raTable[i] != NULL) {
+      if (strcmp(query, "course") == 0 && strcmp(raTable[i]->course, value) == 0) {
+        insertRATuple(raTemp, raTable[i]->course, raTable[i]->studentID, raTable[i]->grade, raTable[i]->name, raTable[i]->address, raTable[i]->phone, raTable[i]->preReq, raTable[i]->day, raTable[i]->hour, raTable[i]->room);
+      } else if (strcmp(query, "studentID") == 0 && raTable[i]->studentID == studentID) {
+        insertRATuple(raTemp, raTable[i]->course, raTable[i]->studentID, raTable[i]->grade, raTable[i]->name, raTable[i]->address, raTable[i]->phone, raTable[i]->preReq, raTable[i]->day, raTable[i]->hour, raTable[i]->room);
+      } else if (strcmp(query, "grade") == 0 && strcmp(raTable[i]->grade, value) == 0) {
+        insertRATuple(raTemp, raTable[i]->course, raTable[i]->studentID, raTable[i]->grade, raTable[i]->name, raTable[i]->address, raTable[i]->phone, raTable[i]->preReq, raTable[i]->day, raTable[i]->hour, raTable[i]->room);
+      } else if (strcmp(query, "name") == 0 && strcmp(raTable[i]->name, value) == 0) {
+        insertRATuple(raTemp, raTable[i]->course, raTable[i]->studentID, raTable[i]->grade, raTable[i]->name, raTable[i]->address, raTable[i]->phone, raTable[i]->preReq, raTable[i]->day, raTable[i]->hour, raTable[i]->room);
+      } else if (strcmp(query, "address") == 0 && strcmp(raTable[i]->address, value) == 0) {
+        insertRATuple(raTemp, raTable[i]->course, raTable[i]->studentID, raTable[i]->grade, raTable[i]->name, raTable[i]->address, raTable[i]->phone, raTable[i]->preReq, raTable[i]->day, raTable[i]->hour, raTable[i]->room);
+      } else if (strcmp(query, "phone") == 0 && strcmp(raTable[i]->phone, value) == 0) {
+        insertRATuple(raTemp, raTable[i]->course, raTable[i]->studentID, raTable[i]->grade, raTable[i]->name, raTable[i]->address, raTable[i]->phone, raTable[i]->preReq, raTable[i]->day, raTable[i]->hour, raTable[i]->room);
+      } else if (strcmp(query, "preReq") == 0 && strcmp(raTable[i]->preReq, value) == 0) {
+        insertRATuple(raTemp, raTable[i]->course, raTable[i]->studentID, raTable[i]->grade, raTable[i]->name, raTable[i]->address, raTable[i]->phone, raTable[i]->preReq, raTable[i]->day, raTable[i]->hour, raTable[i]->room);
+      } else if (strcmp(query, "day") == 0 && strcmp(raTable[i]->day, value) == 0) {
+        insertRATuple(raTemp, raTable[i]->course, raTable[i]->studentID, raTable[i]->grade, raTable[i]->name, raTable[i]->address, raTable[i]->phone, raTable[i]->preReq, raTable[i]->day, raTable[i]->hour, raTable[i]->room);
+      } else if (strcmp(query, "hour") == 0 && strcmp(raTable[i]->hour, value) == 0) {
+        insertRATuple(raTemp, raTable[i]->course, raTable[i]->studentID, raTable[i]->grade, raTable[i]->name, raTable[i]->address, raTable[i]->phone, raTable[i]->preReq, raTable[i]->day, raTable[i]->hour, raTable[i]->room);
+      } else if (strcmp(query, "room") == 0 && strcmp(raTable[i]->room, value) == 0) {
+        insertRATuple(raTemp, raTable[i]->course, raTable[i]->studentID, raTable[i]->grade, raTable[i]->name, raTable[i]->address, raTable[i]->phone, raTable[i]->preReq, raTable[i]->day, raTable[i]->hour, raTable[i]->room);
+      }
+      raTable[i] = raTable[i]->next;
+      if (raTable[i] == NULL) {
+        break;
+      }
+    }
+  }
+  return raTemp;
 }
 
 struct RA** project(struct RA** raTable, char* query) {
@@ -93,7 +123,6 @@ struct RA** project(struct RA** raTable, char* query) {
   return raTemp;
 }
 
-//struct
 
 
 void printRATable(struct RA** raTable) {
@@ -110,9 +139,23 @@ void printRATable(struct RA** raTable) {
 
 
 void problem3() {
+  printf("Doing example 8.12 from book: \n");
   struct RA** raTable = createRATable();
-  insertRATuple(raTable, "CS101", 12345, "A", "C. Brown", "34 Apple St.", "555-1234", "CS100", "M", "9AM", "Turing Aud.");
-  insertRATuple(raTable, "EE200", 55555, "B", "P. Patty", "45 Pear St.", "555-5678", "CS101", "T", "10AM", "25 Ohm Hall");
-  //printRATable(raTable);
-  printRATable(project(raTable, "studentID"));
+  insertRATuple(raTable, "CS101", 12345, "A", "", "", "", "", "", "", "");
+  insertRATuple(raTable, "CS101", 67890, "B", "", "", "", "", "", "", "");
+  insertRATuple(raTable, "EE200", 55555, "B", "", "", "", "", "", "", "");
+  insertRATuple(raTable, "EE200", 22222, "B+", "", "", "", "", "", "", "");
+  insertRATuple(raTable, "CS101", 33333, "A-", "", "", "", "", "", "", "");
+  insertRATuple(raTable, "PH100", 67890, "C+", "", "", "", "", "", "", "");
+  printRATable(select(raTable, "course", "CS101", 0));
+
+  printf("\nDoing example 8.13 from book: \n");
+  struct RA** raTable1 = createRATable();
+  insertRATuple(raTable1, "CS101", 12345, "A", "", "", "", "", "", "", "");
+  insertRATuple(raTable1, "CS101", 67890, "B", "", "", "", "", "", "", "");
+  insertRATuple(raTable1, "EE200", 55555, "B", "", "", "", "", "", "", "");
+  insertRATuple(raTable1, "EE200", 22222, "B+", "", "", "", "", "", "", "");
+  insertRATuple(raTable1, "CS101", 33333, "A-", "", "", "", "", "", "", "");
+  insertRATuple(raTable1, "PH100", 67890, "C+", "", "", "", "", "", "", "");
+  printRATable(project(select(raTable1, "course", "CS101", 0), "studentID"));
 }
