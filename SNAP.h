@@ -2,6 +2,7 @@
 CSC 173 Project 4
 Created By Bepen Neupane and Sailesh Kaveti
 NetID: bneupane skaveti
+
 */
 #ifndef _SNAP_h_gf
 #define _SNAP_h_gf
